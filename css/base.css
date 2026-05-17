@@ -74,7 +74,6 @@ figure {
 article,
 section,
 p,
-figcaption,
 h1,
 h2,
 h3,
@@ -461,10 +460,22 @@ details {
   }
 }
 
+blockquote {
+  border-radius: 0.2rem;
+  padding: var(--space);
+  background: var(--color-gray-light);
+}
+
 @media (prefers-contrast: more) {
   :root {
     --accent-color: #ccc; /*#a7c6ff*/
     --color-gray-light: #ccc; /*rgba(120, 120, 120, 0.1);*/
     --color-gray-lighter: #ddd;
+  }
+}
+
+@media print {
+  .dont-print {
+    display: none;
   }
 }
