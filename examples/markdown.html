@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--<meta name="color-scheme" content="light dark" />-->
+    <title>markdown</title>
+    <link rel="stylesheet" href="../minimax.css" />
+    <link rel="stylesheet" href="../minimax-serif.css" disabled />
+    <script src="../minimax.js" type="module"></script>
+  </head>
+
+  <body style="background: #fff">
+    <main
+      style="
+        --max-readable-width: 50rem;
+        max-width: var(--max-readable-width);
+        margin: 0 auto;
+      "
+    >
+      <div id="demo">
+        <form class="form">
+          <div>
+            <label for="serif">Use serif-font-book-style</label>&nbsp;
+            <input type="checkbox" id="serif" />
+          </div>
+          <br />
+          <section>
+            <textarea>
+# Title
+
+Lorem ipsum dolor sit amet, *consectetur* adipisicing elit, sed do eiusmod
+tempor incididunt ut **labore et dolore magna aliqua**. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. ***Duis aute irure dolor*** in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. ~~Excepteur sint occaecat~~ cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Heading 2
+
+Lorem ipsum dolor sit amet, *consectetur* adipisicing elit, sed do eiusmod
+tempor incididunt ut **labore et dolore magna aliqua**. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+---
+
+***Duis aute irure dolor*** in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. ~~Excepteur sint occaecat~~ cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### Heading 3
+
+unordered list:
+
+* item-1
+  * sub-item-1
+  * sub-item-2
+- item-2
+  - sub-item-3
+  - sub-item-4
++ item-3
+  + sub-item-5
+  + sub-item-6
+
+
+ordered list:
+
+1. item-1
+    1. sub-item-1
+    2. sub-item-2
+2. item-2
+    1. sub-item-3
+    2. sub-item-4
+3. item-3
+
+#### Heading 4
+
+Table Header-1 | Table Header-2 | Table Header-3
+:--- | :---: | ---:
+Table Data-1 | Table Data-2 | Table Data-3
+TD-4 | Td-5 | TD-6
+Table Data-7 | Table Data-8 | Table Data-9
+
+##### Heading 5
+
+You may also want some images right in here like ![GitHub Logo](https://cloud.githubusercontent.com/assets/5456665/13322882/e74f6626-dc00-11e5-921d-f6d024a01eaa.png "GitHub") - you can do that but I would recommend you to use the component "image" and simply split your text.
+
+###### Heading 6
+
+Let us do some links - this for example: https://github.com/MinhasKamal/github-markdown-syntax is **NOT** a link but this: is [GitHub](https://github.com/MinhasKamal/github-markdown-syntax)
+</textarea
+            >
+          </section>
+        </form>
+        <article id="output"></article>
+        <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+        <script>
+          window.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.querySelector("#demo textarea");
+            const updateHtml = () =>
+              (document.querySelector("main #output").innerHTML =
+                `<article>${marked.parse(textarea.value)}</article>`);
+            textarea.addEventListener("keyup", updateHtml);
+            document
+              .querySelector("#serif")
+              .addEventListener("change", (ev) => {
+                const link = document.querySelector(
+                  `link[href*="/minimal-serif.css"]`,
+                );
+                link.disabled = !ev.target.checked;
+              });
+            updateHtml();
+          });
+        </script>
+        <style>
+          #demo {
+            padding: 1rem;
+            textarea {
+              width: 100%;
+              min-height: 8em;
+              /*resize: none;*/
+            }
+          }
+          @media print {
+            #demo form {
+              display: none;
+            }
+          }
+        </style>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+form.form {
+  --form-transition-duration: 0.1s;
+  --border-size: 2px;
+  textarea {
+    font-family: var(--font-monospace);
+    font-size: var(--font-size-monospace);
+    display: block;
+    width: 100%;
+  }
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="url"],
+  input[type="color"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="time"],
+  input[type="month"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="week"],
+  input[type="file"] {
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    border: var(--border-size) solid currentColor;
+    padding: var(--space-half);
+    outline: var(--border-size) solid transparent;
+    transition: outline var(--form-transition-duration);
+    height: var(--form-input-height);
+    &:focus {
+      outline: var(--border-size) solid currentColor;
+      outline-offset: var(--border-size);
+    }
+    &::placeholder {
+      color: currentColor;
+      opacity: 0.35;
+    }
+  }
+  input[type="range"] {
+    border-radius: var(--border-radius);
+    margin-right: 0.15em;
+    &:focus {
+      outline: var(--border-size) solid currentColor;
+    }
+    height: var(--form-input-height);
+  }
+  input[type="file"] {
+    border: none;
+    text-align: right;
+    font-family: var(--font-monospace);
+    transition: background var(--form-transition-duration);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-monospace);
+    &::file-selector-button {
+      border-radius: var(--border-radius);
+      border: 0;
+      padding: 2px var(--space-half);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    &:focus,
+    &:hover {
+      background: var(--color-gray-light);
+      cursor: pointer;
+    }
+  }
+  textarea {
+    height: inherit;
+  }
+  select {
+    border: var(--border-size) solid currentColor;
+    border-radius: var(--border-radius);
+    padding: var(--space-half);
+    &:hover,
+    &:focus {
+      background: var(--color-gray-lighter);
+      outline: var(--border-size) solid currentColor;
+      outline-offset: var(--border-size);
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  section > label:has(+ select),
+  section > label:has(+ input) {
+    display: flex;
+    align-items: center;
+  }
+  input:invalid,
+  select:invalid {
+    color: var(--color-red);
+  }
+  section:has(> label + input),
+  section:has(> label + select) {
+    display: flex;
+    justify-content: space-between;
+    /*grid-template-columns: repeat(2, 1fr);*/
+    gap: var(--space);
+    margin-bottom: 0;
+  }
+  section:has(> label + textarea) {
+    label {
+      margin-bottom: var(--space-half);
+      display: block;
+    }
+  }
+  fieldset {
+    border: var(--border-size) solid var(--color-gray-lighter);
+    padding: var(--space);
+    border-radius: var(--border-radius);
+    &:has(legend) {
+      padding-top: var(--space-half);
+    }
+    > section {
+      display: flex;
+      gap: var(--space-half);
+      label {
+        flex-grow: 1;
+      }
+    }
+  }
+  section footer {
+    display: flex;
+    gap: var(--space-half);
+    justify-content: end;
+
+    input[type="submit"],
+    button[role="submit"] {
+      font-weight: var(--font-weight-semi-bold);
+    }
+  }
+  > section {
+    display: grid;
+    gap: var(--section-group-gap, var(--space));
+  }
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: var(--accent-color);
+  color: var(--accent-text-color);
+  border: 0;
+  border-radius: var(--border-radius);
+  padding: var(--space-half) var(--space);
+  font-size: 0.95em;
+  transition: outline --form-transition-duration;
+  outline: 2px solid transparent;
+  @media (hover) {
+    &:hover {
+      cursor: pointer;
+      outline: 2px solid var(--active-color);
+    }
+  }
+  &:focus {
+    outline: 2px solid var(--active-color);
+  }
+}
+
+small {
+  button,
+  input[type="submit"],
+  input[type="reset"] {
+    padding: calc(0.5 * var(--space-half)) var(--space-half);
+  }
+}

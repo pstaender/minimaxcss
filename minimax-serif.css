@@ -1,0 +1,33 @@
+:root {
+  --font: var(--font-serif);
+  --webkit-font-smoothing: inherit;
+  --font-size: var(--font-size-serif);
+  --font-size-monospace: 0.85rem;
+  @media print {
+    --font-size: 11.5pt;
+    --line-height: 1.4;
+  }
+}
+article,
+section {
+  > p + p {
+    text-indent: 1.5rem;
+    margin-top: var(--space);
+  }
+}
+
+hr.ornament {
+  border-top: 1.5px dotted currentColor;
+  &:before {
+    content: "❦";
+    background: var(--background-color, white);
+    padding: 0 0.25em;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    top: -0.75em;
+    width: 1.5em;
+    left: calc(50% - 0.75em);
+  }
+}
