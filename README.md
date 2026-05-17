@@ -1,7 +1,15 @@
 # minimaxCSS
 ## Opinionated minimal CSS setup with maximum effect
 
-**[Demo](https://pstaender.github.io/minimaxcss/)**
+### Demos
+
+* [Misc](https://pstaender.github.io/minimaxcss/examples/misc.html)
+* [Article](https://pstaender.github.io/minimaxcss/examples/article.html)
+* [Book I](https://pstaender.github.io/minimaxcss/examples/book.html)
+* [Book II](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
+* [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
+* [Convert markdown to html for testing](https://pstaender.github.io/minimaxcss/examples/markdown.html)
+* [Readme](https://pstaender.github.io/minimaxcss/)
 
 ### Goals
 
@@ -104,14 +112,6 @@ You can now enjoy a fancy separator-line with an ornament:
 --accent-text-color: …;
 --active-color: …;
 ```
-
-### Examples
-
-* [Article](./examples/article.html)
-* [Book](./examples/book.html)
-* [Misc](./examples/misc.html)
-* [Forms](./examples/froms.html)
-* [Convert markdown to html for testing](./examples/markdown.html)
 
 ### License
 
