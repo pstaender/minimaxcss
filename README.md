@@ -9,7 +9,21 @@
 * [Book II](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
 * [Convert markdown to html for testing](https://pstaender.github.io/minimaxcss/examples/markdown.html)
-* [Readme](https://pstaender.github.io/minimaxcss/)
+* [List of examples](https://pstaender.github.io/minimaxcss/examples/)
+
+### Usage
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.css" />
+```
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax-serif.css" />
+```
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.js" type="module"></script>
+```
 
 ### Goals
 
@@ -21,9 +35,6 @@
 - responsive – whenever it makes sense (mobile, desktop, dark-mode, print …)
 - works on Chrome/Edge, Safari **and** Firefox
 
-### Usage
-
-Add `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.css" />` for layout and `<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.js" type="module"></script>` for additional js features (image lazy-loading and autoheight features).
 
 ### Forms
 
