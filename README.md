@@ -23,7 +23,7 @@
 
 ### Usage
 
-Add `<link rel="stylesheet" href="minimax.css" />` for layout and `<script src="minimax.js" type="module"></script>` for additional js features (image lazy-loading and autoheight features).
+Add `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.css" />` for layout and `<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.js" type="module"></script>` for additional js features (image lazy-loading and autoheight features).
 
 ### Forms
 
