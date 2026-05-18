@@ -35,18 +35,18 @@ main {
 }
 
 .dont-display {
-  display: none;
+  display: none !important;
 }
 
 @media screen {
   .dont-screen {
-    display: none;
+    display: none !important;
   }
 }
 
 @media print {
   .dont-print {
-    display: none;
+    display: none !important;
   }
 }
 
