@@ -35,10 +35,6 @@
 - responsive – whenever it makes sense (mobile, desktop, dark-mode, print …)
 - works on Chrome/Edge, Safari **and** Firefox
 
-### Usage
-
-Add `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.css" />` for layout and `<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.mjs" type="module"></script>` for additional js features (image lazy-loading and autoheight features).
-
 ### Forms
 
 Use a `<section>` directly nested in `form` to enable form layout:
