@@ -9,7 +9,21 @@
 * [Book II](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
 * [Convert markdown to html for testing](https://pstaender.github.io/minimaxcss/examples/markdown.html)
-* [Readme](https://pstaender.github.io/minimaxcss/)
+* [List of examples](https://pstaender.github.io/minimaxcss/examples/)
+
+### Usage
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.css" />
+```
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax-serif.css" />
+```
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.js" type="module"></script>
+```
 
 ### Goals
 
@@ -44,8 +58,6 @@ Use a `<section>` directly nested in `form` to enable form layout:
 ```
 
 <img style="width: 500px; aspect-ratio: 1.152;" alt="form" src="https://github.com/user-attachments/assets/cf9ba4ad-ac1b-4a21-9d14-b6fb04c6e51a" />
-
-
 
 ### Autoheight
 
@@ -101,7 +113,6 @@ You can now enjoy a fancy separator-line with an ornament:
 
 
 <img width="970" height="47" alt="ornament" src="https://github.com/user-attachments/assets/ca31d526-0588-4fbe-b845-8d2b49f8191f" />
-
 
 ### First-Letter
 
