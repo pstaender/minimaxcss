@@ -425,7 +425,7 @@ button[icon="x"] {
 
 details {
   &.boxed {
-    border-radius: 0.2rem;
+    border-radius: var(--border-radius);
     padding: var(--space);
     padding-bottom: 0;
     background: var(--color-gray-light);
@@ -461,7 +461,7 @@ details {
 }
 
 blockquote {
-  border-radius: 0.2rem;
+  border-radius: var(--border-radius);
   padding: var(--space);
   background: var(--color-gray-light);
 }
