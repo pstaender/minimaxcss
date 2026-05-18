@@ -27,10 +27,10 @@ Add `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minima
 
 ### Forms
 
-Use class `form` to enable form layout:
+Use a `<section>` directly nested in `form` to enable form layout:
 
 ```html
-<form class="form">
+<form>
   <section>
     <section>
       <label for="name">Your name:</label>
@@ -54,7 +54,7 @@ Let auto adjust the height on the following elements (js file needs to be includ
 #### Details
 
 ```html
-<details class="boxed" autoheight>
+<details autoheight>
   <summary>Details</summary>
   <section>…</section>
 </details>
@@ -86,6 +86,12 @@ Only one separator-line will be seen on screen. No separator-line will be visibl
 <hr class="ornament">
 ```
 
+Use your own:
+
+```html
+<hr data-ornament="⚛">
+```
+
 ### Serif font style for traditional book-like-layout
 
 Add `<link rel="stylesheet" href="minimax-serif.css" />`.
@@ -112,6 +118,10 @@ You can now enjoy a fancy separator-line with an ornament:
 --accent-text-color: …;
 --active-color: …;
 ```
+
+### TODO
+
+* consider `prefers-reduced-motion` (transition-duration, autoheight)
 
 ### License
 

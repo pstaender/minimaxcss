@@ -3,6 +3,7 @@
   --webkit-font-smoothing: inherit;
   --font-size: var(--font-size-serif);
   --font-size-monospace: 0.85rem;
+  --ornament: "❦";
   @media print {
     --font-size: 11.5pt;
     --line-height: 1.4;
@@ -19,7 +20,6 @@ section {
 hr.ornament {
   border-top: 1.5px dotted currentColor;
   &:before {
-    content: "❦";
     background: var(--background-color, white);
     padding: 0 0.25em;
     position: absolute;
