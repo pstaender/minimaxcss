@@ -25,6 +25,14 @@
 <script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.mjs" type="module"></script>
 ```
 
+### Reasonable amount of css-classes for optional visual features
+
+* `.invisible` (equal to `visibility: hidden`), `.dont-display`, `.dont-screen` (don't show on screen) and `.dont-print` (don't show on print)
+* `hr.ornament` (fancy hr with dotted border and ornament)
+* `picture.float`, `picture.float.left` (float images inside sections)
+* `p.initial-letter` (fancy first letter)
+* `.no-smooth-scroll` (opt-out of smooth-scrolling-behaviour)
+
 ### Goals
 
 - use default html components instead of class-overloaded div-elements:

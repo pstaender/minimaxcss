@@ -25,7 +25,7 @@ form:has(> section) {
     font-weight: 500;
     border-radius: var(--border-radius);
     border: var(--border-size) solid currentColor;
-    padding: var(--space-half);
+    padding: var(--space-small);
     outline: var(--border-size) solid transparent;
     transition: outline var(--form-transition-duration);
     height: var(--form-input-height);
@@ -56,7 +56,7 @@ form:has(> section) {
     &::file-selector-button {
       border-radius: var(--border-radius);
       border: 0;
-      padding: 2px var(--space-half);
+      padding: 2px var(--space-small);
       font-size: 1rem;
       font-weight: 600;
     }
@@ -72,7 +72,7 @@ form:has(> section) {
   select {
     border: var(--border-size) solid currentColor;
     border-radius: var(--border-radius);
-    padding: var(--space-half);
+    padding: var(--space-small);
     &:hover,
     &:focus {
       background: var(--color-gray-lighter);
@@ -103,7 +103,7 @@ form:has(> section) {
   }
   section:has(> label + textarea) {
     label {
-      margin-bottom: var(--space-half);
+      margin-bottom: var(--space-small);
       display: block;
     }
   }
@@ -112,11 +112,11 @@ form:has(> section) {
     padding: var(--space);
     border-radius: var(--border-radius);
     &:has(legend) {
-      padding-top: var(--space-half);
+      padding-top: var(--space-small);
     }
     > section {
       display: flex;
-      gap: var(--space-half);
+      gap: var(--space-small);
       label {
         flex-grow: 1;
       }
@@ -124,7 +124,7 @@ form:has(> section) {
   }
   section footer {
     display: flex;
-    gap: var(--space-half);
+    gap: var(--space-small);
     justify-content: end;
 
     input[type="submit"],
@@ -145,7 +145,7 @@ input[type="reset"] {
   color: var(--accent-text-color);
   border: 0;
   border-radius: var(--border-radius);
-  padding: var(--space-half) var(--space);
+  padding: var(--space-small) var(--space);
   font-size: 0.95em;
   transition: outline --form-transition-duration;
   outline: 2px solid transparent;
@@ -164,6 +164,6 @@ small {
   button,
   input[type="submit"],
   input[type="reset"] {
-    padding: calc(0.5 * var(--space-half)) var(--space-half);
+    padding: calc(0.5 * var(--space-small)) var(--space-small);
   }
 }

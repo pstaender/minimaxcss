@@ -14,7 +14,6 @@ article,
 section {
   > p + p {
     text-indent: 1.5rem;
-    margin-top: var(--space);
   }
 }
 
@@ -31,4 +30,8 @@ hr.ornament, hr[data-ornament] {
     width: 1.5em;
     left: calc(50% - 0.75em);
   }
+}
+
+@media print {
+  --font-size-monospace: 0.75em;
 }
