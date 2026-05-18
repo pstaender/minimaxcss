@@ -6,10 +6,22 @@
     <title>Max und Moritz</title>
     <link rel="stylesheet" href="../minimax.css" />
     <link rel="stylesheet" href="../minimax-serif.css" media="print" />
+    <script src="../minimax.mjs" type="module"></script>
   </head>
 
   <body>
     <main style="max-width: 50rem; margin-inline: auto">
+      <section class="dont-print">
+        <details autoheight>
+          <summary><h4>Inhaltsverzeichnis</h4></summary>
+          <section>
+            <ol>
+              <li><a href="#vorwort">Vorwort</a></li>
+              <li><a href="#erster-streich">Erster Streich</a></li>
+            </ol>
+          </section>
+        </details>
+      </section>
       <article>
         <hgroup style="text-align: center">
           <h1>Max und Moritz</h1>
@@ -43,7 +55,7 @@
         <hr class="ornament" />
         <hr />
 
-        <section style="--text-align: center">
+        <section style="--text-align: center" id="vorwort">
           <h2>Vorwort</h2>
           <section>
             Ach was muß man oft von bösen<br />
@@ -72,7 +84,7 @@
       </article>
       <hr class="ornament" />
       <hr />
-      <article style="--text-align: center">
+      <article style="--text-align: center" id="erster-streich">
         <section>
           <hgroup>
             <h2>Erster Streich</h2>

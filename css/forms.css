@@ -1,5 +1,4 @@
 form:has(> section) {
-  --form-transition-duration: 0.1s;
   --border-size: 2px;
   textarea {
     font-family: var(--font-monospace);

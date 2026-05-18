@@ -9,6 +9,7 @@
     --line-height: 1.4;
   }
 }
+
 article,
 section {
   > p + p {
@@ -17,7 +18,7 @@ section {
   }
 }
 
-hr.ornament {
+hr.ornament, hr[data-ornament] {
   border-top: 1.5px dotted currentColor;
   &:before {
     background: var(--background-color, white);

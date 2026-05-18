@@ -1,5 +1,5 @@
 # minimaxCSS
-## Opinionated minimal CSS setup with maximum effect
+## Minimal CSS defaults with maximum effect
 
 ### Demos
 
@@ -129,10 +129,6 @@ You can now enjoy a fancy separator-line with an ornament:
 --accent-text-color: …;
 --active-color: …;
 ```
-
-### TODO
-
-* consider `prefers-reduced-motion` (transition-duration, autoheight)
 
 ### License
 

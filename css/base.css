@@ -1,3 +1,10 @@
+html:not(:has(.no-smooth-scroll)) {
+  scroll-behavior: smooth;
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
 &:focus,
 &:active {
   outline-color: var(--active-color);
@@ -12,7 +19,7 @@ body {
 }
 
 a {
-  color: var(--active-color);
+  color: var(--active-color, currentColor);
   font-weight: 500;
 }
 
@@ -28,7 +35,7 @@ main {
 }
 
 .dont-display {
-  display: none
+  display: none;
 }
 
 @media screen {
@@ -226,7 +233,8 @@ hgroup {
   }
 }
 
-hr[data-ornament], hr.ornament {
+hr[data-ornament],
+hr.ornament {
   --space-hr: 8rem;
   @media screen and (max-width: 900px) {
     --space-hr: 4rem;
@@ -452,11 +460,14 @@ details:has(> section) {
     margin-left: calc(-1 * var(--space));
     margin-top: calc(-1 * var(--space));
     width: calc(100% + calc(2 * var(--space)));
-    background-position: calc(100% - 1em) 1em;
+    background-position: calc(100% - 1em) center;
     list-style-type: none;
     background-image: var(--icon-arrow-down-url);
     background-repeat: no-repeat;
     background-size: 1.5em;
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
     &:hover {
       cursor: pointer;
     }

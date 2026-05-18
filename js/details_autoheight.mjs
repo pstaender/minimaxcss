@@ -89,8 +89,8 @@ class Accordion {
   }
 }
 
-export function applyDetailsAutoheight() {
-  document.querySelectorAll("details[autoheight]").forEach((el) => {
+export function applyDetailsAutoheight(selector) {
+  document.querySelectorAll(selector).forEach((el) => {
     new Accordion(el);
   });
 }
