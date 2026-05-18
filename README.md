@@ -22,7 +22,7 @@
 ```
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.mjs" type="module"></script>
 ```
 
 ### Goals
