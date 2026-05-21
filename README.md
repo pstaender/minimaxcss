@@ -4,6 +4,7 @@
 ### Demos
 
 * [Misc](https://pstaender.github.io/minimaxcss/examples/misc.html)
+* [Text](https://pstaender.github.io/minimaxcss/examples/text.html)
 * [Article](https://pstaender.github.io/minimaxcss/examples/article.html)
 * [Book I](https://pstaender.github.io/minimaxcss/examples/book.html)
 * [Book II](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
@@ -14,15 +15,25 @@
 ### Usage
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.css" />
 ```
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss/minimax-serif.css" />
-```
+Use serif-font (`Times New Roman`):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/minimaxcss/minimax.mjs" type="module"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-serif.css" />
+```
+
+Use a DIN-A4 friendly layout for screen and print:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-a4.css" />
+```
+
+Adds autoheight to `details` and `textarea`. Also adds image lazyloading: 
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.mjs" type="module"></script>
 ```
 
 ### Reasonable amount of css-classes for optional visual features
@@ -32,6 +43,7 @@
 * `picture.float`, `picture.float.left` (float images inside sections)
 * `p.initial-letter` (fancy first letter)
 * `.no-smooth-scroll` (opt-out of smooth-scrolling-behaviour)
+* `.h1`, `.h2` etc. (simulate headings without using the actual heading elements)
 
 ### Goals
 

@@ -1,12 +1,12 @@
 :root {
   --font: var(--font-serif);
-  --webkit-font-smoothing: inherit;
+  --webkit-font-smoothing: auto;
   --font-size: var(--font-size-serif);
   --font-size-monospace: 0.85rem;
   --ornament: "❦";
   @media print {
-    --font-size: 11.5pt;
-    --line-height: 1.4;
+    --font-size: 12pt;
+    --line-height: 1.45;
   }
 }
 
@@ -17,7 +17,8 @@ section {
   }
 }
 
-hr.ornament, hr[data-ornament] {
+hr.ornament,
+hr[data-ornament] {
   border-top: 1.5px dotted currentColor;
   &:before {
     background: var(--background-color, white);
@@ -33,5 +34,7 @@ hr.ornament, hr[data-ornament] {
 }
 
 @media print {
-  --font-size-monospace: 0.75em;
+  :root {
+    --font-size-monospace: 0.75em;
+  }
 }

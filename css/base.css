@@ -55,18 +55,27 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   margin-top: var(--space);
   line-height: var(--line-height-heading);
-  margin-bottom: var(--space-small);
+  margin-bottom: calc(0.65 * var(--space));
 }
 
 h5,
-h6 {
+h6,
+.h5,
+.h6 {
   font-weight: 600;
   font-size: 1rem;
 }
-h6 {
+h6,
+.h6 {
   font-weight: 500;
 }
 
@@ -119,18 +128,6 @@ p.initial-letter::first-letter {
   margin-top: 0.12em;
   font-weight: bold;
   margin-right: var(--space-small);
-}
-/* only works in chrome so far */
-p.-experimental-initial-letter::first-letter {
-  initial-letter: var(--initial-letter, 3);
-  margin-right: 0;
-  float: none;
-  line-height: inherit;
-  margin-top: 0;
-  font-weight: bold;
-  margin-right: 0;
-  padding-right: var(--space-small);
-  font-size: inherit;
 }
 
 figure {
@@ -214,7 +211,7 @@ hgroup {
   h5,
   h6 {
     margin: 0;
-    margin-botton: var(--space-small);
+    margin-bottom: var(--space-small);
   }
 }
 
@@ -376,8 +373,6 @@ p {
 }
 
 img.error-during-loading {
-  /*padding: var(--space-small) var(--space);*/
-  /*padding-right: calc(var(--space) + 2em);*/
   opacity: 0.5;
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -450,7 +445,12 @@ details:has(> section) {
     background-image: var(--icon-arrow-down-url);
     background-repeat: no-repeat;
     background-size: 1.5em;
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       margin: 0;
     }
     &:hover {
@@ -483,11 +483,10 @@ section {
   }
 }
 
-
 @media (prefers-contrast: more) {
   :root {
-    --accent-color: #ccc; /*#a7c6ff*/
-    --color-gray-light: #ccc; /*rgba(120, 120, 120, 0.1);*/
+    --accent-color: #ccc;
+    --color-gray-light: #ccc;
     --color-gray-lighter: #ddd;
   }
 }

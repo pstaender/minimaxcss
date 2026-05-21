@@ -1,0 +1,14 @@
+@page {
+  size: A4;
+  margin: 1.4cm 2cm;
+}
+:root {
+  --max-readable-width: 50rem;
+  @media print {
+    --max-readable-width: inherit;
+  }
+}
+main {
+  max-width: var(--max-readable-width);
+  margin-inline: auto;
+}

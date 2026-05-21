@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>text</title>
+    <link rel="stylesheet" href="../minimax.css" />
+    <link rel="stylesheet" href="../minimax-a4.css" />
+    <link rel="stylesheet" href="../minimax-serif.css" disabled />
+
+  </head>
+
+  <body>
+    <main>
+          <article>
+            <!--<section>
+              <h4>The Computer Wars of the 1980s: IBM, Apple, and Microsoft</h4>
+              <p>The 1980s was the decade when personal computers changed the world. Three companies stood at the center of this revolution. Their fight to lead the new computer age created famous rivalries and shaped the technology we still use today.</p>
+              <br>
+            </section>-->
+            <section>
+              <h4>IBM: The Sleeping Giant Wakes Up</h4>
+              <p>
+                At the start of the 1980s, IBM was the biggest computer company in the world. People called it "Big Blue." For many years, IBM had built huge, expensive computers for banks, governments, and large businesses. But small companies like Apple were selling personal computers, and IBM did not want to be left behind. In 1981, IBM released the IBM PC. It was a big success because business customers trusted the IBM name. To build the PC quickly, IBM made one big mistake: they used parts that other companies could also buy, and they let a small company called Microsoft provide the operating system. Soon, other companies started making "IBM-compatible" computers that worked just like the IBM PC but cost less. By the end of the 1980s, IBM was still powerful, but it was slowly losing control of the market it had helped create.
+              </p>
+              <br>
+            </section>
+            <section>
+              <h4>Apple: The Rebel with a New Idea</h4>
+              <p>
+                Apple was founded in 1976 by Steve Jobs and Steve Wozniak. In the early 1980s, the Apple II was one of the most popular home computers in America. But Apple's biggest moment came in 1984, when it released the Macintosh. The Mac was the first popular computer that used a mouse and showed pictures, icons, and windows on the screen instead of just text and codes. Apple even ran a famous TV commercial during the Super Bowl to introduce it. The Macintosh made computers easier and friendlier for normal people. However, Apple computers were expensive, and they did not work with IBM software. In 1985, Steve Jobs was pushed out of the company he had created. Apple kept selling computers through the late 1980s, but it slowly lost ground to the cheaper IBM-compatible machines.
+              </p>
+              <br>
+            </section>
+            <section>
+              <h4>Microsoft: The Quiet Winner</h4>
+              <p>
+                Microsoft was started in 1975 by Bill Gates and Paul Allen. In the early 1980s, it was still a small company, but it got a huge lucky break. When IBM needed an operating system for its new PC, IBM chose Microsoft. The system was called MS-DOS. The clever part was that Microsoft kept the right to sell MS-DOS to other computer makers too. So when the IBM-compatible clones appeared, almost all of them used Microsoft's software. Microsoft earned money from every single one. In 1985, Microsoft released the first version of Windows, which copied some of the ideas from Apple's Macintosh. Apple was angry and later sued Microsoft, but it could not stop them. By the end of the 1980s, Microsoft was no longer a small company. It was on its way to becoming the most powerful software company in the world, while IBM and Apple slowly fell behind.
+              </p>
+            </section>
+    </main>
+
+    <div id="demo" class="dont-print">
+      <form>
+      <section>
+        <section>
+          <label for="serif">Use serif font</label><input type="checkbox" id="serif">
+        </section>
+      </section>
+      </form>
+    </div>
+    <style>
+    #demo {
+      max-width: 10em;
+      box-shadow: var(--box-shadow);
+      padding: var(--space);
+      border-radius: 10px;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background:  #fff;
+      font-size: var(--font-size-small);
+    }
+    </style>
+    <script type="module">
+    document.querySelector('#demo').addEventListener('change', (event) => {
+      if (event.target.id === 'serif') {
+        document.querySelector('link[rel=stylesheet][href="../minimax-serif.css"]').disabled = !event.target.checked
+      }
+    })
+    </script>
+
+  </body>
+</html>

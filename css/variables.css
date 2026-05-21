@@ -35,15 +35,15 @@
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   --ornament: attr(data-ornament, "•");
   /* ICONS */
-  /* Tabler --> https://icon-sets.iconify.design/tabler/?icon-filter=chevron */
+  /* from Tabler --> https://icon-sets.iconify.design/tabler/?icon-filter=chevron */
   --icon-arrow-down-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9l6 6l6-6'/%3E%3C/svg%3E");
   --icon-arrow-up-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 15l6-6l6 6'/%3E%3C/svg%3E");
-  /* Material */
+  /* from Material */
   --icon-cross-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z'/%3E%3C/svg%3E");
   --icon-broken-image-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cg fill='black'%3E%3Cpath d='M224 56v32l-48 16l-16 40l-23.35 9.34l-39-39a8 8 0 0 0-11.32 0L32 168.69V56a8 8 0 0 1 8-8h176a8 8 0 0 1 8 8' opacity='.2'/%3E%3Cpath d='M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h64a8 8 0 0 0 7.59-5.47l14.83-44.48L163 151.43a8.07 8.07 0 0 0 4.46-4.46l14.62-36.55l44.48-14.83A8 8 0 0 0 232 88V56a16 16 0 0 0-16-16M112.41 157.47L98.23 200H40v-28l52-52l30.42 30.42l-5.42 2.15a8 8 0 0 0-4.59 4.9M216 82.23l-42.53 14.18a8 8 0 0 0-4.9 4.62l-14.72 36.82l-15.27 6.15l-35.27-35.27a16 16 0 0 0-22.62 0L40 149.37V56h176Zm12.68 33a8 8 0 0 0-7.21-1.1l-23.8 7.94a8 8 0 0 0-4.9 4.61l-14.31 35.77l-35.77 14.31a8 8 0 0 0-4.61 4.9l-7.94 23.8a8 8 0 0 0 7.59 10.54H216a16 16 0 0 0 16-16v-78.27a8 8 0 0 0-3.32-6.49ZM216 200h-67.17l3.25-9.75l35.51-14.2a8.07 8.07 0 0 0 4.46-4.46l14.2-35.51l9.75-3.25Z'/%3E%3C/g%3E%3C/svg%3E");
   @media print {
-    --font-size: 10pt;
-    --line-height: 1.65;
+    --font-size: 11pt;
+    --line-height: 1.55;
   }
   @media (prefers-reduced-motion: reduce) {
     --form-transition-duration: none;
@@ -56,6 +56,7 @@ html:has(meta[name="color-scheme"][content*="dark"]) {
     --color-gray-light: #222;
     --color-gray-lighter: #333;
     --background-color: #111;
+    /* Tabler */
     --icon-arrow-down-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9l6 6l6-6'/%3E%3C/svg%3E");
     --icon-arrow-up-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 15l6-6l6 6'/%3E%3C/svg%3E");
     /* Material */
