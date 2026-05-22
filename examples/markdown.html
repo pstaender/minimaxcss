@@ -14,14 +14,21 @@
     <main>
       <div id="demo">
         <form class="form" class="dont-print">
-          <div>
+          <div id="serif-check">
             <label for="serif">Use serif-font-book-style</label>&nbsp;
             <input type="checkbox" id="serif" />
           </div>
-          <br />
           <section>
-            <textarea>
-# Title
+            <textarea></textarea>
+            <br />
+          </section>
+        </form>
+        <article id="output"></article>
+        <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+        <script type="module">
+          const localStorageKey = `markdown-text`;
+          const textarea = document.querySelector("#demo textarea");
+          const defaultText = `# Title
 
 Lorem ipsum dolor sit amet, *consectetur* adipisicing elit, sed do eiusmod
 tempor incididunt ut **labore et dolore magna aliqua**. Ut enim ad minim veniam,
@@ -82,16 +89,7 @@ You may also want some images right in here like ![GitHub Logo](https://cloud.gi
 
 ###### Heading 6
 
-Let us do some links - this for example: https://pstaender.github.io/minimaxcss/examples/ is **NOT** a link but [this is.](https://pstaender.github.io/minimaxcss/examples/)
-</textarea
-            >
-          </section>
-        </form>
-        <article id="output"></article>
-        <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
-        <script type="module">
-          const localStorageKey = `markdown-text`;
-          const textarea = document.querySelector("#demo textarea");
+Let us do some links - this for example: https://pstaender.github.io/minimaxcss/examples/ is **NOT** a link but [this is.](https://pstaender.github.io/minimaxcss/examples/)`;
           const updateHtml = (ev, text = null) => {
             if (text !== null) {
               textarea.value = text;
@@ -116,7 +114,10 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             );
             link.disabled = !ev.target.checked;
           });
-          updateHtml(null, sessionStorage.getItem(localStorageKey) || null);
+          updateHtml(
+            null,
+            sessionStorage.getItem(localStorageKey) || defaultText,
+          );
         </script>
         <style>
           #demo {
@@ -127,18 +128,37 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
               /*resize: none;*/
             }
           }
+          #serif-check {
+            padding: 2px 4px;
+            box-shadow: none;
+            background: #888;
+            color: #fff;
+            position: fixed;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.6rem;
+            border-radius: var(--border-radius);
+
+            @media screen and (min-width: 900px) {
+              box-shadow: var(--box-shadow);
+              padding: var(--space);
+              border-radius: 10px;
+              font-size: 1rem;
+              background: #fff;
+              color: #000;
+              font-size: var(--font-size-small);
+            }
+          }
           @media print {
             #demo form {
               display: none;
             }
           }
-          :root {
-            --font:
-              Arial, Aptos, ui-sans-serif, -apple-system, BlinkMacSystemFont,
-              "Segoe UI Variable Display", "Segoe UI", Helvetica,
-              "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew",
-              Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-            --paragraph-text-alignment: justify;
+          @media screen and (min-width: 900px), print {
+            :root {
+              --paragraph-hyphens: auto;
+              --paragraph-text-alignment: justify;
+            }
           }
         </style>
       </div>

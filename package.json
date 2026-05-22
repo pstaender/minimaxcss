@@ -1,6 +1,6 @@
 {
   "name": "minimaxcss",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Minimal CSS defaults with maximum effect",
   "main": "minimax.mjs",
   "directories": {

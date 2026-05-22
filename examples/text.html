@@ -11,7 +11,7 @@
 
   <body>
     <main>
-      <article style="--paragraph-text-alignment: justify"></article>
+      <article></article>
     </main>
 
     <div id="demo" class="dont-print">
@@ -26,15 +26,31 @@
     </div>
     <style>
       #demo {
-        max-width: 10em;
-        box-shadow: var(--box-shadow);
-        padding: var(--space);
-        border-radius: 10px;
+        padding: 2px 4px;
+        box-shadow: none;
+        background: #888;
+        color: #fff;
         position: fixed;
-        top: 1rem;
-        right: 1rem;
-        background: #fff;
-        font-size: var(--font-size-small);
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 0.6rem;
+        border-radius: var(--border-radius);
+
+        @media screen and (min-width: 900px) {
+          box-shadow: var(--box-shadow);
+          padding: var(--space);
+          border-radius: 10px;
+          font-size: 1rem;
+          background: #fff;
+          color: #000;
+          font-size: var(--font-size-small);
+        }
+      }
+      @media screen and (min-width: 900px), print {
+        :root {
+          --paragraph-hyphens: auto;
+          --paragraph-text-alignment: justify;
+        }
       }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>

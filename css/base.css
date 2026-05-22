@@ -481,6 +481,7 @@ section {
   p {
     margin-bottom: var(--paragraph-vertical-margin);
     text-align: var(--paragraph-text-alignment, inherit);
+    hyphens: var(--paragraph-hyphens, inherit);
   }
 }
 
