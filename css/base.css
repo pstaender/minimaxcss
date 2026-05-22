@@ -265,6 +265,12 @@ p {
   }
 }
 
+iframe {
+  border: 0px;
+  border-radius: var(--border-radius);
+  width: 100%;
+}
+
 p:has(> picture:not(.float)) {
   display: flex;
   justify-content: space-between;
