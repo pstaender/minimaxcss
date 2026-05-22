@@ -27,7 +27,7 @@ Use serif-font (`Times New Roman`):
 Use a DIN-A4 friendly layout for screen and print:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-a4.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-din-a4.css" />
 ```
 
 Adds autoheight to `details` and `textarea`. Also adds image lazyloading: 

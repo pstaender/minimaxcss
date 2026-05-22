@@ -1,6 +1,9 @@
 @page {
   size: A4;
-  margin: 1.4cm 2cm;
+  margin: 2.5cm 1.5cm;
+}
+@page:first {
+  margin-top: 1.1cm;
 }
 :root {
   --max-readable-width: 50rem;
@@ -11,4 +14,11 @@
 main {
   max-width: var(--max-readable-width);
   margin-inline: auto;
+  li > ol,
+  li > ul {
+    padding-left: var(--space);
+  }
+  li > ul > li {
+    list-style-type: square;
+  }
 }
