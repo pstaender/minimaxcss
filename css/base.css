@@ -542,6 +542,10 @@ details:has(> section) {
   &[open] > summary {
     background-image: var(--icon-arrow-up-url);
     margin-bottom: 0.5rem;
+    @media print {
+      background-image: none;
+      margin-bottom: 0;
+    }
   }
 }
 
