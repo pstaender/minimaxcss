@@ -20,17 +20,6 @@ section {
 hr.ornament,
 hr[data-ornament] {
   border-top: 1.5px dotted currentColor;
-  &:before {
-    background: var(--background-color, white);
-    padding: 0 0.25em;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    left: 0;
-    top: -0.75em;
-    width: 1.5em;
-    left: calc(50% - 0.75em);
-  }
 }
 
 @media print {

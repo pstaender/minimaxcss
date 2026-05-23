@@ -1,5 +1,5 @@
 :root {
-  --font-size: inherit;
+  --font-size: 100%;
   --line-height: 1.5;
   --line-height-heading: 1.3;
   @media screen and (min-width: 900px) {
@@ -24,7 +24,8 @@
   --font-family-serif:
     "Times New Roman", Times, source-serif-pro, Georgia, Cambria, serif;
   --font-size-serif: 110%;
-  --font-serif: var(--font-size-serif) var(--font-family-serif);
+  --font-weight-serif: normal;
+  --font-serif: var(--font-weight-serif) var(--font-size-serif) var(--font-family-serif);
   --font-weight-semi-bold: 600;
 
   --webkit-font-smoothing: antialiased;
@@ -36,6 +37,8 @@
 
   --accent-color: #ddd;
   --accent-text-color: currentColor;
+  --c2a-color: #000;
+  --c2a-contrast-color: #ff;
 
   --form-input-height: 2.75em;
 

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../minimax.css" />
     <link rel="stylesheet" href="../minimax-din-a4.css" />
     <link rel="stylesheet" href="../minimax-serif.css" disabled />
+    <link rel="stylesheet" href="../minimax-alternate-fonts.css" disabled />
     <script src="../minimax.mjs" type="module"></script>
   </head>
 
@@ -14,10 +15,18 @@
     <main>
       <div id="demo">
         <form class="form" class="dont-print">
-          <div id="serif-check">
-            <label for="serif">Use serif-font-book-style</label>&nbsp;
-            <input type="checkbox" id="serif" />
-          </div>
+          <small>
+            <section id="font-check">
+              <label for="font">Fonts</label>
+
+              <select id="font">
+                <option value="default">Default</option>
+                <option value="serif">Serif</option>
+                <option value="alternate">Alternate</option>
+                <option value="alternate+serif">Alternate Serif</option>
+              </select>
+            </section>
+          </small>
           <section>
             <textarea></textarea>
             <br />
@@ -108,11 +117,23 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             }
           };
           textarea.addEventListener("keyup", updateHtml);
-          document.querySelector("#serif").addEventListener("change", (ev) => {
-            const link = document.querySelector(
+          document.querySelector("#font").addEventListener("change", (ev) => {
+            const serif = document.querySelector(
               `link[href*="minimax-serif.css"]`,
             );
-            link.disabled = !ev.target.checked;
+            const alternate = document.querySelector(
+              `link[href*="minimax-alternate-fonts.css"]`,
+            );
+            serif.disabled = true;
+            alternate.disabled = true;
+            if (ev.target.value.match(/serif/)) {
+              serif.disabled = false;
+            }
+            if (ev.target.value.match(/alternate/)) {
+              alternate.disabled = false;
+            }
+
+
           });
           updateHtml(
             null,
@@ -128,7 +149,7 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
               /*resize: none;*/
             }
           }
-          #serif-check {
+          #font-check {
             padding: 2px 4px;
             box-shadow: none;
             background: #888;
@@ -138,6 +159,9 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             right: 0.5rem;
             font-size: 0.6rem;
             border-radius: var(--border-radius);
+            select {
+              padding: 2px 4px;
+            }
 
             @media screen and (min-width: 900px) {
               box-shadow: var(--box-shadow);

@@ -20,6 +20,14 @@ body {
 a {
   color: var(--active-color, currentColor);
   font-weight: 500;
+  @media (hover) {
+    text-decoration-color: color-mix(in srgb, currentColor, transparent);
+    transition: text-decoration-color var(--transition-duration, 0.2s);
+    &:hover {
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, currentColor, 100%);
+    }
+  }
 }
 
 main {
@@ -140,19 +148,27 @@ figure {
 }
 
 hr:has(+ hr) {
+  --border-color: var(--color-gray-light, #000);
   margin-bottom: 0;
-  border-color: var(--color-gray-light);
-  & + hr {
-    margin-top: 0;
-    border-color: var(--color-gray-light);
-  }
-}
-
-hr:has(+ hr) {
+  border-color: var(--border-color);
   clear: both;
   page-break-after: always;
   & + hr {
+    margin-top: 0;
+    border-color: var(--border-color);
     display: none;
+  }
+}
+
+@media screen {
+  hr:has(+ hr + hr) {
+    --hr-margin: 3rem;
+    margin-top: var(--hr-margin);
+    margin-bottom: var(--hr-margin);
+    --border-color: currentColor;
+    @media (min-width: 900px) {
+      --hr-margin: 5rem;
+    }
   }
 }
 
@@ -228,29 +244,38 @@ hr.ornament {
   margin-top: var(--space-hr);
   margin-bottom: var(--space-hr);
   color: currentColor;
+  position: relative;
 
   &:before {
     content: var(--ornament);
     background: var(--background-color, white);
     padding: 0 0.25em;
+    transform: translateX(-50%) translateY(-50%);
+    left: 50%;
+    top: 50%;
     position: absolute;
-    width: 100%;
-    text-align: center;
-    left: 0;
-    top: -0.85em;
-    width: 1.5em;
-    left: calc(50% - 0.75em);
     color: currentColor;
+    height: 1em;
+    margin-top: -0.35em;
   }
 }
 
-@media (min-width: 900px), print {
+picture.float {
+  display: block;
+  margin-bottom: var(--space);
+  margin-top: 0.4em;
+  width: 100%;
+  img {
+    width: inherit;
+  }
+}
+
+@media screen and (min-width: 550px), print {
   picture.float {
     float: right;
     margin-left: var(--space);
-    margin-bottom: var(--space);
-    margin-top: 0.4em;
     max-width: 50%;
+    width: inherit;
     &.left {
       float: left;
       margin-left: 0;
@@ -323,21 +348,6 @@ table {
     text-align: var(--text-align, center);
   }
 
-  @media screen and (max-width: 900px) {
-    max-width: fit-content;
-    overflow-x: auto;
-    overflow-y: auto;
-    white-space: nowrap;
-    display: block;
-    max-width: fit-content;
-    border: 0;
-    max-height: calc(100vh - 8rem);
-    thead {
-      position: sticky;
-      top: 0;
-    }
-  }
-
   td,
   th {
     border: var(--border-size) solid var(--border-color);
@@ -363,6 +373,60 @@ table {
   tbody {
     tr:nth-child(2n) {
       background: var(--color-gray-light);
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    max-width: fit-content;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    display: block;
+    max-width: fit-content;
+    border: 0;
+    max-height: calc(100vh - 8rem);
+
+    caption {
+      caption-side: initial;
+      margin-top: var(--space-small);
+      margin-bottom: var(--space-small);
+      text-align: left;
+    }
+    &:has(thead th),
+    &.sticky-headings {
+      --sticky-overlow-box-shadow: 7px 5px 6px rgba(0, 0, 0, 0.1);
+      thead {
+        position: sticky;
+        top: 0;
+      }
+      &:has(tbody th), &.sticky-headings  {
+        thead tr th:first-child,
+        tr td:first-child {
+          position: sticky;
+          left: 0;
+        }
+        tbody {
+          tr td {
+            border: 0;
+            border-right: var(--border-size) solid var(--border-color);
+          }
+          tr:nth-child(1n) td:first-child {
+            background: var(--background-color, white);
+            box-shadow: var(--sticky-overlow-box-shadow);
+          }
+          tr:nth-child(2n) td:first-child {
+            background: var(--color-gray-light);
+            box-shadow: var(--sticky-overlow-box-shadow);
+          }
+        }
+        thead {
+          z-index: 2;
+          tr:first-child th:first-child {
+            background: var(--color-gray-light);
+            /*box-shadow: var(--sticky-overlow-box-shadow);*/
+          }
+        }
+      }
     }
   }
 }
@@ -411,6 +475,11 @@ img.error-during-loading {
     padding-right: 3px;
     color: var(--color-red);
   }
+}
+
+small {
+  --space: 0.5rem;
+  --space-small: 0.25rem;
 }
 
 dialog {
