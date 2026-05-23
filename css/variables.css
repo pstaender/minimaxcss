@@ -37,8 +37,9 @@
 
   --accent-color: #ddd;
   --accent-text-color: currentColor;
-  --c2a-color: #000;
-  --c2a-contrast-color: #ff;
+
+  --call-to-action-color: black;
+  --call-to-action-contrast-color: white;
 
   --form-input-height: 2.75em;
 
@@ -73,6 +74,8 @@ html:has(meta[name="color-scheme"][content*="dark"]) {
     --color-gray-light: #222;
     --color-gray-lighter: #333;
     --background-color: #111;
+    --call-to-action-color: white;
+    --call-to-action-contrast-color: black;
     /* Tabler */
     --icon-arrow-down-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9l6 6l6-6'/%3E%3C/svg%3E");
     --icon-arrow-up-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 15l6-6l6 6'/%3E%3C/svg%3E");

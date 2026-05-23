@@ -125,9 +125,10 @@ form:has(> section) {
     gap: var(--space-small);
     justify-content: end;
 
-    input[type="submit"],
-    button[role="submit"] {
+    input[type="submit"] {
       font-weight: var(--font-weight-semi-bold);
+      background: var(--call-to-action-color);
+      color: var(--call-to-action-contrast-color);
     }
   }
   > section {
@@ -156,6 +157,12 @@ input[type="reset"] {
   &:focus {
     outline: 2px solid var(--active-color);
   }
+}
+
+button.call-to-action {
+  font-weight: var(--font-weight-semi-bold);
+  background: var(--call-to-action-color);
+  color: var(--call-to-action-contrast-color);
 }
 
 small {

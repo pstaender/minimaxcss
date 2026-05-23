@@ -20,14 +20,6 @@ body {
 a {
   color: var(--active-color, currentColor);
   font-weight: 500;
-  @media (hover) {
-    text-decoration-color: color-mix(in srgb, currentColor, transparent);
-    transition: text-decoration-color var(--transition-duration, 0.2s);
-    &:hover {
-      text-decoration: underline;
-      text-decoration-color: color-mix(in srgb, currentColor, 100%);
-    }
-  }
 }
 
 main {
