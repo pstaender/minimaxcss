@@ -135,6 +135,18 @@ p.initial-letter::first-letter {
   margin-top: 0.12em;
   font-weight: bold;
   margin-right: var(--space-small);
+  /* only works in chrome so far */
+  supports(initial-letter: var(--initial-letter, 3)) {
+    initial-letter: var(--initial-letter, 3);
+    float: none;
+    line-height: inherit;
+    margin-top: 0;
+    font-weight: bold;
+    margin-right: 0;
+    margin-left: 0.02em;
+    padding-right: 0.02em;
+    font-size: inherit;
+  }
 }
 
 figure {

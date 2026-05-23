@@ -14,7 +14,7 @@
   <body>
     <main>
       <div id="demo">
-        <form class="form" class="dont-print">
+        <form class="form dont-print">
           <small>
             <section id="font-check">
               <label for="font">Fonts</label>
@@ -117,7 +117,8 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             }
           };
           textarea.addEventListener("keyup", updateHtml);
-          document.querySelector("#font").addEventListener("change", (ev) => {
+
+          function enableAndDisableCSS(value) {
             const serif = document.querySelector(
               `link[href*="minimax-serif.css"]`,
             );
@@ -126,19 +127,22 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             );
             serif.disabled = true;
             alternate.disabled = true;
-            if (ev.target.value.match(/serif/)) {
+            if (value.match(/serif/)) {
               serif.disabled = false;
             }
-            if (ev.target.value.match(/alternate/)) {
+            if (value.match(/alternate/)) {
               alternate.disabled = false;
             }
+          }
 
-
+          document.querySelector("#font").addEventListener("change", (ev) => {
+            enableAndDisableCSS(ev.target.value);
           });
           updateHtml(
             null,
             sessionStorage.getItem(localStorageKey) || defaultText,
           );
+          enableAndDisableCSS(document.querySelector("#font").value);
         </script>
         <style>
           #demo {
