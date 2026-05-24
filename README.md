@@ -1,5 +1,5 @@
 # minimaxCSS
-## minimal effort with maximum outcome 
+## Minimal css effort with maximum layout outcome 
 
 ### Demos
 

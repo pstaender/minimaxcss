@@ -6,18 +6,13 @@
     <meta name="color-scheme" content="light dark" />
     <title>misc</title>
     <link rel="stylesheet" href="../minimax.css" />
+    <link rel="stylesheet" href="../minimax-din-a4.css" />
     <link rel="stylesheet" href="../minimax-alternate-fonts.css" />
     <script src="../minimax.mjs" type="module"></script>
   </head>
 
   <body>
-    <main
-      style="
-        --max-readable-width: 50rem;
-        max-width: var(--max-readable-width);
-        margin: 0 auto;
-      "
-    >
+    <main>
       <section>
         <h1>Forms</h1>
         <form action="" method="get" class="form">
@@ -165,7 +160,11 @@
       <article>
         <section>
           <div role="form" class="form">
-            <button command="show-modal" commandfor="my-dialog" class="call-to-action">
+            <button
+              command="show-modal"
+              commandfor="my-dialog"
+              class="call-to-action"
+            >
               Open dialog
             </button>
 
@@ -258,12 +257,21 @@
         </section>
         <section>
           <blockquote>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua. At vero eos et accusam et
-            justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-            takimata sanctus est Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet.
           </blockquote>
+        </section>
+        <section>
+          <p>
+            <code>Lorem ipsum</code> dolor sit amet, consetetur
+            <em>sadipscing elitr</em>, sed diam nonumy eirmod tempor invidunt ut
+            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+            et accusam et justo duo dolores et ea rebum. Stet clita kasd
+            gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
         </section>
       </article>
       <article>
