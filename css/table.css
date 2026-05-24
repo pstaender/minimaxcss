@@ -4,6 +4,7 @@ table {
   width: 100%;
   border-spacing: var(--border-spacing, var(--space-small));
   border-collapse: collapse;
+  /*border-style: hidden;*/
   border: var(--border-size) solid var(--border-color);
 
   thead,
@@ -31,6 +32,11 @@ table {
   }
   thead {
     background: var(--color-gray-light);
+    th {
+      outline-offset: calc(-0.5 * var(--border-size));
+      outline: var(--border-size) solid var(--border-color);
+      border: var(--border-size) solid var(--border-color);
+    }
   }
   td,
   th {
@@ -68,34 +74,32 @@ table {
         position: sticky;
         top: 0;
       }
-      &:has(tbody th), &.sticky-headings, &:has(tbody td strong)  {
+      &:has(tbody th),
+      &.sticky-headings,
+      &:has(tbody td strong) {
         thead tr th:first-child,
         tr td:first-child {
           position: sticky;
           left: 0;
         }
         tbody {
-          tr td {
-            border: 0;
-            border-right: var(--border-size) solid var(--border-color);
-          }
           tr:nth-child(1n) td:first-child {
             background: var(--background-color, white);
             /* box-shadow: var(--sticky-overlow-box-shadow); works not chrome, so using filter(drop-shadow(…) instead */
             filter: drop-shadow(var(--sticky-overlow-box-shadow));
-
           }
           tr:nth-child(2n) td:first-child {
             background: var(--color-gray-light);
             filter: drop-shadow(var(--sticky-overlow-box-shadow));
-
           }
         }
         thead {
           z-index: 2;
           tr:first-child th:first-child {
             background: var(--color-gray-light);
-            /*box-shadow: var(--sticky-overlow-box-shadow);*/
+          }
+          th {
+            border: calc(1 * var(--border-size)) solid var(--border-color);
           }
         }
       }

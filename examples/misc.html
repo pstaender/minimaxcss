@@ -169,21 +169,23 @@
             </button>
 
             <dialog id="my-dialog">
-              <header>
-                <button
-                  commandfor="my-dialog"
-                  command="close"
-                  icon="x"
-                ></button>
-              </header>
-              <p>This dialog was opened using an invoker command.</p>
-              <footer>
-                <small>
-                  <button commandfor="my-dialog" command="close" autofocus>
-                    OK
-                  </button>
-                </small>
-              </footer>
+              <section>
+                <header>
+                  <button
+                    commandfor="my-dialog"
+                    command="close"
+                    icon="x"
+                  ></button>
+                </header>
+                <section><p>This dialog was opened using an invoker command.</p></section>
+                <footer>
+                  <small>
+                    <button commandfor="my-dialog" command="close" autofocus>
+                      OK
+                    </button>
+                  </small>
+                </footer>
+              </section>
             </dialog>
           </div>
         </section>

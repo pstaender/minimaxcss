@@ -111,7 +111,7 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             }
 
             document.querySelector("main #output").innerHTML =
-              `<article>${marked.parse(textarea.value)}</article>`;
+              `<section>${marked.parse(textarea.value)}</section>`;
             let title = document
               .querySelector("main #output")
               .querySelector("h1,h2,h3,h4,h5,h6")?.textContent;

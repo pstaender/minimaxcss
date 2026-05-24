@@ -103,6 +103,12 @@ figure {
   clear: both;
 }
 
+article:has(> section + section), article:has(> nav), article:has(> footer) {
+  display: var(--article-with-sections-view, flex);
+  flex-direction: column;
+  gap: var(--article-with-sections-gap, var(--space));
+}
+
 article,
 section,
 p,
@@ -395,11 +401,12 @@ dialog {
   box-shadow: var(--box-shadow);
   padding: var(--space);
   max-width: var(--max-readable-width);
+
   button[icon="x"] {
     float: right;
-    margin-top: 0.2em;
-    background-color: none;
+    transform: translateX(0.15em) translateY(-0.15em);
   }
+
 }
 
 button[icon="x"] {
@@ -463,7 +470,7 @@ section {
   > p + p {
     margin-top: var(--paragraph-vertical-margin);
   }
-  p {
+  > p {
     margin-bottom: var(--paragraph-vertical-margin);
     text-align: var(--paragraph-text-alignment, inherit);
     hyphens: var(--paragraph-hyphens, inherit);
