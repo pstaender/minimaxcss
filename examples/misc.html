@@ -6,17 +6,13 @@
     <meta name="color-scheme" content="light dark" />
     <title>misc</title>
     <link rel="stylesheet" href="../minimax.css" />
+    <link rel="stylesheet" href="../minimax-din-a4.css" />
+    <link rel="stylesheet" href="../minimax-alternate-fonts.css" />
     <script src="../minimax.mjs" type="module"></script>
   </head>
 
-  <body -style="--accent-color: #3be3ff; --accent-text-color: #263141;">
-    <main
-      style="
-        --max-readable-width: 50rem;
-        max-width: var(--max-readable-width);
-        margin: 0 auto;
-      "
-    >
+  <body>
+    <main>
       <section>
         <h1>Forms</h1>
         <form action="" method="get" class="form">
@@ -102,7 +98,11 @@
             </section>
             <section>
               <label for="comment">Comment:</label>
-              <textarea id="comment" autoheight></textarea>
+              <textarea
+                id="comment"
+                autoheight
+                placeholder="Place a comment here…"
+              ></textarea>
             </section>
             <footer>
               <input type="reset" />
@@ -160,7 +160,11 @@
       <article>
         <section>
           <div role="form" class="form">
-            <button command="show-modal" commandfor="my-dialog">
+            <button
+              command="show-modal"
+              commandfor="my-dialog"
+              class="call-to-action"
+            >
               Open dialog
             </button>
 
@@ -175,7 +179,9 @@
               <p>This dialog was opened using an invoker command.</p>
               <footer>
                 <small>
-                  <button commandfor="my-dialog" command="close" autofocus>OK</button>
+                  <button commandfor="my-dialog" command="close" autofocus>
+                    OK
+                  </button>
                 </small>
               </footer>
             </dialog>
@@ -246,19 +252,31 @@
                   sea takimata sanctus est Lorem ipsum dolor sit amet.
                 </figcaption>
               </figure>
-              <blockquote>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                sea takimata sanctus est Lorem ipsum dolor sit amet.
-              </blockquote>
             </section>
           </details>
+        </section>
+        <section>
+          <blockquote>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet.
+          </blockquote>
+        </section>
+        <section>
+          <p>
+            <code>Lorem ipsum</code> dolor sit amet, consetetur
+            <em>sadipscing elitr</em>, sed diam nonumy eirmod tempor invidunt ut
+            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+            et accusam et justo duo dolores et ea rebum. Stet clita kasd
+            gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
         </section>
       </article>
       <article>
         <section>
+          <hr />
           <hr />
           <hr />
           <h1>Code</h1>

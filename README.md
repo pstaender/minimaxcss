@@ -1,15 +1,16 @@
 # minimaxCSS
-## Minimal CSS defaults with maximum effect
+## Minimal css effort with maximum layout outcome 
 
 ### Demos
 
+* [Convert any markdown to html for testing](https://pstaender.github.io/minimaxcss/examples/markdown.html)
 * [Misc](https://pstaender.github.io/minimaxcss/examples/misc.html)
 * [Text](https://pstaender.github.io/minimaxcss/examples/text.html)
+* [Large Tables](https://pstaender.github.io/minimaxcss/examples/tables.html)
 * [Article](https://pstaender.github.io/minimaxcss/examples/article.html)
 * [Book I](https://pstaender.github.io/minimaxcss/examples/book.html)
 * [Book II](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
-* [Convert markdown to html for testing](https://pstaender.github.io/minimaxcss/examples/markdown.html)
 * [List of examples](https://pstaender.github.io/minimaxcss/examples/)
 
 ### Usage
@@ -18,19 +19,30 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.css" />
 ```
 
+#### Additional Layout Features
+
 Use serif-font (`Times New Roman`):
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-serif.css" />
 ```
 
-Use a DIN-A4 friendly layout for screen and print:
+Use a DIN-A4-like human-readable-layout for screen and print:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-din-a4.css" />
 ```
 
-Adds autoheight to `details` and `textarea`. Also adds image lazyloading: 
+Use alternate free modern fonts (instead of `Arial` and `Times New Roman`):
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-alternate-fonts.css" />
+```
+
+#### Little js magic for smoother UX
+
+  * adds autoheight to `details` and `textarea`
+  * adds image lazyloading
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.mjs" type="module"></script>
@@ -43,15 +55,18 @@ Adds autoheight to `details` and `textarea`. Also adds image lazyloading:
 * `picture.float`, `picture.float.left` (float images inside sections)
 * `p.initial-letter` (fancy first letter)
 * `.no-smooth-scroll` (opt-out of smooth-scrolling-behaviour)
+* `table.sticky-headings` (forces sticky first row and first column)
+* `button.call-to-action` (use `--call-to-action-color` and `--call-to-action-contrast-color` to set your preferred colors)
 * `.h1`, `.h2` etc. (simulate headings without using the actual heading elements)
 
 ### Goals
 
+- zero css/js dependencies, no additional external resources are required
+- using pure css
 - use default html components instead of class-overloaded div-elements:
   - e.g.: use `hr` instead of `<div class="separator-line"></div>`, `<details>…≤/details>` instead of `<div class="accordion">…≤/div>` etc…
 - customize specific layout via css variables
 - use `<section>` for structuring content and forms
-- enables lazy-loading on images
 - responsive – whenever it makes sense (mobile, desktop, dark-mode, print …)
 - works on Chrome/Edge, Safari **and** Firefox
 

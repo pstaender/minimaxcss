@@ -1,8 +1,7 @@
 form:has(> section) {
   --border-size: 2px;
   textarea {
-    font-family: var(--font-monospace);
-    font-size: var(--font-size-monospace);
+    font: var(--font-monospace);
     display: block;
     width: 100%;
   }
@@ -22,7 +21,6 @@ form:has(> section) {
   input[type="url"],
   input[type="week"],
   input[type="file"] {
-    font-weight: 500;
     border-radius: var(--border-radius);
     border: var(--border-size) solid currentColor;
     padding: var(--space-small);
@@ -41,18 +39,17 @@ form:has(> section) {
   input[type="range"] {
     border-radius: var(--border-radius);
     margin-right: 0.15em;
+    height: var(--form-input-height);
     &:focus {
       outline: var(--border-size) solid currentColor;
     }
-    height: var(--form-input-height);
   }
   input[type="file"] {
     border: none;
     text-align: right;
-    font-family: var(--font-monospace);
+    font: var(--font-monospace);
     transition: background var(--form-transition-duration);
     border-radius: var(--border-radius);
-    font-size: var(--font-size-monospace);
     &::file-selector-button {
       border-radius: var(--border-radius);
       border: 0;
@@ -73,6 +70,7 @@ form:has(> section) {
     border: var(--border-size) solid currentColor;
     border-radius: var(--border-radius);
     padding: var(--space-small);
+    transition: outline var(--form-transition-duration);
     &:hover,
     &:focus {
       background: var(--color-gray-lighter);
@@ -127,9 +125,10 @@ form:has(> section) {
     gap: var(--space-small);
     justify-content: end;
 
-    input[type="submit"],
-    button[role="submit"] {
+    input[type="submit"] {
       font-weight: var(--font-weight-semi-bold);
+      background: var(--call-to-action-color);
+      color: var(--call-to-action-contrast-color);
     }
   }
   > section {
@@ -158,6 +157,12 @@ input[type="reset"] {
   &:focus {
     outline: 2px solid var(--active-color);
   }
+}
+
+button.call-to-action {
+  font-weight: var(--font-weight-semi-bold);
+  background: var(--call-to-action-color);
+  color: var(--call-to-action-contrast-color);
 }
 
 small {

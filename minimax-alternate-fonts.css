@@ -1,0 +1,19 @@
+@import url("./fonts/inter-4.1/inter.css");
+@import url("./fonts/fira-code-6.2/fira_code.css");
+@import url("./fonts/lora-v37/lora.css");
+
+:root {
+  --font-family:
+    "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji",
+    "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --font-family-serif:
+    "Lora", "Times New Roman", Times, source-serif-pro, Georgia, Cambria, serif;
+  --font-size-serif: 100%;
+  --font-family-monospace:
+    "Fira Code", ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    Liberation Mono, monospace;
+  --font-weight-monospace: normal;
+  --font-size-monospace: 95%;
+}

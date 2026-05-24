@@ -1,0 +1,104 @@
+table {
+  --border-size: 2px;
+  --border-color: var(--color-gray-lighter);
+  width: 100%;
+  border-spacing: var(--border-spacing, var(--space-small));
+  border-collapse: collapse;
+  border: var(--border-size) solid var(--border-color);
+
+  thead,
+  tbody {
+    text-align: var(--text-align, inherit);
+  }
+  caption {
+    text-align: var(--text-align, center);
+  }
+
+  td,
+  th {
+    border: var(--border-size) solid var(--border-color);
+  }
+  @media print {
+    border-spacing: 0;
+    --border-size: 0.2pt;
+    --border-color: currentColor;
+    border: var(--border-size) solid currentColor;
+  }
+  caption {
+    caption-side: var(--caption-side, bottom);
+    font-style: italic;
+    margin-top: var(--space-small);
+  }
+  thead {
+    background: var(--color-gray-light);
+  }
+  td,
+  th {
+    padding: var(--space-small) var(--space);
+  }
+  tbody {
+    tr {
+      border: var(--border-size) solid var(--border-color);
+    }
+    tr:nth-child(2n) {
+      background: var(--color-gray-light);
+    }
+  }
+
+  @media (pointer: coarse) {
+    max-width: fit-content;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    display: block;
+    max-width: fit-content;
+    border: 0;
+    max-height: calc(100vh - 8rem);
+
+    caption {
+      caption-side: initial;
+      margin-top: var(--space-small);
+      margin-bottom: var(--space-small);
+      text-align: left;
+    }
+    &:has(thead th),
+    &.sticky-headings {
+      --sticky-overlow-box-shadow: 7px 5px 6px rgba(0, 0, 0, 0.1);
+      thead {
+        position: sticky;
+        top: 0;
+      }
+      &:has(tbody th), &.sticky-headings  {
+        thead tr th:first-child,
+        tr td:first-child {
+          position: sticky;
+          left: 0;
+        }
+        tbody {
+          tr td {
+            border: 0;
+            border-right: var(--border-size) solid var(--border-color);
+          }
+          tr:nth-child(1n) td:first-child {
+            background: var(--background-color, white);
+            /* box-shadow: var(--sticky-overlow-box-shadow); works not chrome, so using filter(drop-shadow(…) instead */
+            filter: drop-shadow(var(--sticky-overlow-box-shadow));
+
+          }
+          tr:nth-child(2n) td:first-child {
+            background: var(--color-gray-light);
+            filter: drop-shadow(var(--sticky-overlow-box-shadow));
+
+          }
+        }
+        thead {
+          z-index: 2;
+          tr:first-child th:first-child {
+            background: var(--color-gray-light);
+            /*box-shadow: var(--sticky-overlow-box-shadow);*/
+          }
+        }
+      }
+    }
+  }
+}

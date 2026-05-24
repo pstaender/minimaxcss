@@ -11,10 +11,9 @@ html:not(:has(.no-smooth-scroll)) {
 }
 
 body {
-  line-height: var(--line-height);
   -webkit-font-smoothing: var(--webkit-font-smoothing);
-  font-family: var(--font);
-  font-size: var(--font-size);
+  font: var(--font);
+  line-height: var(--line-height);
   background-color: var(--background-color, none);
 }
 
@@ -128,6 +127,18 @@ p.initial-letter::first-letter {
   margin-top: 0.12em;
   font-weight: bold;
   margin-right: var(--space-small);
+  /* only works in chrome so far */
+  supports(initial-letter: var(--initial-letter, 3)) {
+    initial-letter: var(--initial-letter, 3);
+    float: none;
+    line-height: inherit;
+    margin-top: 0;
+    font-weight: bold;
+    margin-right: 0;
+    margin-left: 0.02em;
+    padding-right: 0.02em;
+    font-size: inherit;
+  }
 }
 
 figure {
@@ -141,19 +152,27 @@ figure {
 }
 
 hr:has(+ hr) {
+  --border-color: var(--color-gray-light, #000);
   margin-bottom: 0;
-  border-color: var(--color-gray-light);
-  & + hr {
-    margin-top: 0;
-    border-color: var(--color-gray-light);
-  }
-}
-
-hr:has(+ hr) {
+  border-color: var(--border-color);
   clear: both;
   page-break-after: always;
   & + hr {
+    margin-top: 0;
+    border-color: var(--border-color);
     display: none;
+  }
+}
+
+@media screen {
+  hr:has(+ hr + hr) {
+    --hr-margin: 3rem;
+    margin-top: var(--hr-margin);
+    margin-bottom: var(--hr-margin);
+    --border-color: currentColor;
+    @media (min-width: 900px) {
+      --hr-margin: 5rem;
+    }
   }
 }
 
@@ -229,29 +248,38 @@ hr.ornament {
   margin-top: var(--space-hr);
   margin-bottom: var(--space-hr);
   color: currentColor;
+  position: relative;
 
   &:before {
     content: var(--ornament);
     background: var(--background-color, white);
     padding: 0 0.25em;
+    transform: translateX(-50%) translateY(-50%);
+    left: 50%;
+    top: 50%;
     position: absolute;
-    width: 100%;
-    text-align: center;
-    left: 0;
-    top: -0.85em;
-    width: 1.5em;
-    left: calc(50% - 0.75em);
     color: currentColor;
+    height: 1em;
+    margin-top: -0.35em;
   }
 }
 
-@media (min-width: 900px), print {
+picture.float {
+  display: block;
+  margin-bottom: var(--space);
+  margin-top: 0.4em;
+  width: 100%;
+  img {
+    width: inherit;
+  }
+}
+
+@media screen and (min-width: 550px), print {
   picture.float {
     float: right;
     margin-left: var(--space);
-    margin-bottom: var(--space);
-    margin-top: 0.4em;
     max-width: 50%;
+    width: inherit;
     &.left {
       float: left;
       margin-left: 0;
@@ -264,6 +292,12 @@ p {
   &:has(.float) {
     overflow: hidden;
   }
+}
+
+iframe {
+  border: 0px;
+  border-radius: var(--border-radius);
+  width: 100%;
 }
 
 p:has(> picture:not(.float)) {
@@ -280,7 +314,7 @@ pre {
   background: var(--color-gray-light);
   padding: var(--space);
   border-radius: var(--border-radius);
-  font-family: var(--font-monospace);
+  font: var(--font-monospace);
   overflow-x: auto;
   font-size: var(--font-size-monospace);
 }
@@ -300,66 +334,6 @@ li > ul {
 
 hr {
   border: 1px solid currentColor;
-}
-
-table {
-  --border-size: 2px;
-  --border-color: var(--color-gray-lighter);
-  width: 100%;
-  border-spacing: var(--border-spacing, var(--space-small));
-  border-collapse: collapse;
-  border: var(--border-size) solid var(--border-color);
-
-  thead,
-  tbody {
-    text-align: var(--text-align, inherit);
-  }
-  caption {
-    text-align: var(--text-align, center);
-  }
-
-  @media screen and (max-width: 900px) {
-    max-width: fit-content;
-    overflow-x: auto;
-    overflow-y: auto;
-    white-space: nowrap;
-    display: block;
-    max-width: fit-content;
-    border: 0;
-    max-height: calc(100vh - 8rem);
-    thead {
-      position: sticky;
-      top: 0;
-    }
-  }
-
-  td,
-  th {
-    border: var(--border-size) solid var(--border-color);
-  }
-  @media print {
-    border-spacing: 0;
-    --border-size: 0.2pt;
-    --border-color: currentColor;
-    border: var(--border-size) solid currentColor;
-  }
-  caption {
-    caption-side: var(--caption-side, bottom);
-    font-style: italic;
-    margin-top: var(--space-small);
-  }
-  thead {
-    background: var(--color-gray-light);
-  }
-  td,
-  th {
-    padding: var(--space-small) var(--space);
-  }
-  tbody {
-    tr:nth-child(2n) {
-      background: var(--color-gray-light);
-    }
-  }
 }
 
 p {
@@ -401,11 +375,16 @@ img.error-during-loading {
     margin-left: 1em;
     line-height: 1rem;
     content: attr(src);
-    font-family: var(--font-monospace);
+    font: var(--font-monospace);
     font-size: 0.7rem;
     padding-right: 3px;
     color: var(--color-red);
   }
+}
+
+small {
+  --space: 0.5rem;
+  --space-small: 0.25rem;
 }
 
 dialog {
@@ -464,6 +443,10 @@ details:has(> section) {
   &[open] > summary {
     background-image: var(--icon-arrow-up-url);
     margin-bottom: 0.5rem;
+    @media print {
+      background-image: none;
+      margin-bottom: 0;
+    }
   }
 }
 
