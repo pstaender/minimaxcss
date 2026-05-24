@@ -24,6 +24,6 @@ hr[data-ornament] {
 
 @media print {
   :root {
-    --font-size-monospace: 0.75em;
+    --font-size-monospace: 0.75rem;
   }
 }

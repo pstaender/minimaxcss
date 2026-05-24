@@ -78,12 +78,18 @@ h6,
   font-weight: 500;
 }
 
-em {
-  /*font-weight: bold;*/
-  font-style: normal;
+em strong {
+  color: var(--accent-text-color);
   background: var(--accent-color);
   padding: 0 0.25em;
+}
+
+mark {
+  background: var(--accent-color);
+  color: var(--accent-text-color);
+  padding: 0 0.25em;
   border-radius: var(--border-radius);
+  font-weight: bold;
 }
 
 code {

@@ -127,8 +127,8 @@ form:has(> section) {
 
     input[type="submit"] {
       font-weight: var(--font-weight-semi-bold);
-      background: var(--call-to-action-color);
-      color: var(--call-to-action-contrast-color);
+      background: var(--accent-color);
+      color: var(--accent-text-color);
     }
   }
   > section {
@@ -140,8 +140,7 @@ form:has(> section) {
 button,
 input[type="submit"],
 input[type="reset"] {
-  background: var(--accent-color);
-  color: var(--accent-text-color);
+  background: var(--color-gray-lighter);
   border: 0;
   border-radius: var(--border-radius);
   padding: var(--space-small) var(--space);
@@ -161,8 +160,8 @@ input[type="reset"] {
 
 button.call-to-action {
   font-weight: var(--font-weight-semi-bold);
-  background: var(--call-to-action-color);
-  color: var(--call-to-action-contrast-color);
+  background: var(--accent-color);
+  color: var(--accent-text-color);
 }
 
 small {

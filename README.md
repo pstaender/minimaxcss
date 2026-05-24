@@ -1,5 +1,5 @@
 # minimaxCSS
-## Minimal css effort with maximum layout outcome 
+## minimal css effort with maximum layout outcome 
 
 ### Demos
 
@@ -63,7 +63,7 @@ Use monospace as font for everythong:
 * `p.initial-letter` (fancy first letter)
 * `.no-smooth-scroll` (opt-out of smooth-scrolling-behaviour)
 * `table.sticky-headings` (forces sticky first row and first column)
-* `button.call-to-action` (use `--call-to-action-color` and `--call-to-action-contrast-color` to set your preferred colors)
+* `button.call-to-action` (use `--accent-color` and `--accent-text-color` to set your preferred colors)
 * `.h1`, `.h2` etc. (simulate headings without using the actual heading elements)
 
 ### Goals
