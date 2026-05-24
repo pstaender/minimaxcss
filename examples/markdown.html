@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../minimax-din-a4.css" />
     <link rel="stylesheet" href="../minimax-serif.css" disabled />
     <link rel="stylesheet" href="../minimax-alternate-fonts.css" disabled />
+    <link rel="stylesheet" href="../minimax-monospace.css" disabled />
     <script src="../minimax.mjs" type="module"></script>
   </head>
 
@@ -24,6 +25,7 @@
                 <option value="default">Default</option>
                 <option value="serif">Serif</option>
                 <option value="alternate">Alternate</option>
+                <option value="monospace">Monospace</option>
                 <option value="alternate+serif">Alternate Serif</option>
               </select>
             </section>
@@ -126,14 +128,12 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             const alternate = document.querySelector(
               `link[href*="minimax-alternate-fonts.css"]`,
             );
-            serif.disabled = true;
-            alternate.disabled = true;
-            if (value.match(/serif/)) {
-              serif.disabled = false;
-            }
-            if (value.match(/alternate/)) {
-              alternate.disabled = false;
-            }
+            const monospace = document.querySelector(
+              `link[href*="minimax-monospace.css"]`,
+            );
+            serif.disabled = !/serif/.test(value);
+            alternate.disabled = !/(alternate|monospace)/.test(value);
+            monospace.disabled = !/monospace/.test(value);
           }
 
           document.querySelector("#font").addEventListener("change", (ev) => {

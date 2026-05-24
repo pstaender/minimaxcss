@@ -91,6 +91,7 @@ code {
   background: var(--color-gray-light);
   padding: 0.2em 0.4em;
   border-radius: var(--border-radius);
+  font-variant-ligatures: none;
 }
 pre > code {
   padding: 0;
@@ -317,6 +318,7 @@ pre {
   font: var(--font-monospace);
   overflow-x: auto;
   font-size: var(--font-size-monospace);
+  line-height: var(--line-height);
 }
 
 pre,

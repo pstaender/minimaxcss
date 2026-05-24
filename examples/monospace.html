@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
     <title>text</title>
     <link rel="stylesheet" href="../minimax.css" />
     <link rel="stylesheet" href="../minimax-din-a4.css" />
-    <link rel="stylesheet" href="../minimax-serif.css" disabled />
+    <link rel="stylesheet" href="../minimax-monospace.css" />
+    <link rel="stylesheet" href="../minimax-alternate-fonts.css" disabled />
   </head>
 
   <body>
@@ -18,8 +20,8 @@
       <form>
         <section>
           <section>
-            <label for="serif">Use serif font</label>
-            <input type="checkbox" id="serif" />
+            <label for="alternate">Alternate ligature font</label>
+            <input type="checkbox" id="alternate" />
           </section>
         </section>
       </form>
@@ -46,25 +48,20 @@
           font-size: var(--font-size-small);
         }
       }
-      @media screen and (min-width: 900px), print {
-        :root {
-          --paragraph-hyphens: auto;
-          --paragraph-text-alignment: justify;
-        }
-      }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
     <script type="module">
       document.querySelector("#demo").addEventListener("change", (event) => {
-        if (event.target.id === "serif") {
+        if (event.target.id === "alternate") {
           document.querySelector(
-            'link[rel=stylesheet][href="../minimax-serif.css"]',
+            'link[rel=stylesheet][href="../minimax-alternate-fonts.css"]',
           ).disabled = !event.target.checked;
         }
       });
       const text = `#### IBM: The Sleeping Giant Wakes Up
 
 At the start of the 1980s, IBM was the biggest computer company in the world. People called it "Big Blue." For many years, IBM had built huge, expensive computers for banks, governments, and large businesses. But small companies like Apple were selling personal computers, and IBM did not want to be left behind. In 1981, IBM released the IBM PC. It was a big success because business customers trusted the IBM name. To build the PC quickly, IBM made one big mistake: they used parts that other companies could also buy, and they let a small company called Microsoft provide the operating system. Soon, other companies started making "IBM-compatible" computers that worked just like the IBM PC but cost less. By the end of the 1980s, IBM was still powerful, but it was slowly losing control of the market it had helped create.
+
 <br><br>
 
 #### Apple: The Rebel with a New Idea
@@ -74,7 +71,39 @@ Apple was founded in 1976 by Steve Jobs and Steve Wozniak. In the early 1980s, t
 
 #### Microsoft: The Quiet Winner
 
-Microsoft was started in 1975 by Bill Gates and Paul Allen. In the early 1980s, it was still a small company, but it got a huge lucky break. When IBM needed an operating system for its new PC, IBM chose Microsoft. The system was called MS-DOS. The clever part was that Microsoft kept the right to sell MS-DOS to other computer makers too. So when the IBM-compatible clones appeared, almost all of them used Microsoft's software. Microsoft earned money from every single one. In 1985, Microsoft released the first version of Windows, which copied some of the ideas from Apple's Macintosh. Apple was angry and later sued Microsoft, but it could not stop them. By the end of the 1980s, Microsoft was no longer a small company. It was on its way to becoming the most powerful software company in the world, while IBM and Apple slowly fell behind.`;
+Microsoft was started in 1975 by Bill Gates and Paul Allen. In the early 1980s, it was still a small company, but it got a huge lucky break. When IBM needed an operating system for its new PC, IBM chose Microsoft. The system was called MS-DOS. The clever part was that Microsoft kept the right to sell MS-DOS to other computer makers too. So when the IBM-compatible clones appeared, almost all of them used Microsoft's software. Microsoft earned money from every single one. In 1985, Microsoft released the first version of Windows, which copied some of the ideas from Apple's Macintosh. Apple was angry and later sued Microsoft, but it could not stop them. By the end of the 1980s, Microsoft was no longer a small company. It was on its way to becoming the most powerful software company in the world, while IBM and Apple slowly fell behind.
+
+---
+---
+---
+
+## Ligatures
+
+<blockquote>
+<|> |||> ||> |> <| <|| <|||<br>
+<< <<< >> >>> || ||| -- --- == === <br>
+[==[ ]==] [== ==] [===[ ]===] [=== ===] <br>
+=:= =!= =!== <br>
+=<= <=< <=> <=| <=: <=! <=/ >=< <br>
+=>= >=> >=< >=| >=: >=! >=/ <br>
+>>->> >>=>> <<-<< <<=<< <br>
+||-|| ||=|| <--> >--< |--| <br>
+<==> >==< |==| /==/ =:== =!== ==:= ==!= <br>
+<===> >===< |===| /===/ =:=== =!=== ===:= ===!= <br>
+</blockquote>
+
+
+<br><br>
+
+## Table
+
+Table Header-1 | Table Header-2 | Table Header-3
+:-- |:-- |:--
+**Table Data-1** | Table Data-2 | Table Data-3
+**TD-4** | Td-5 | TD-6
+**Table Data-7** | Table Data-8 | Table Data-9
+
+`;
       document.querySelector("main article").innerHTML = marked.parse(text);
     </script>
   </body>

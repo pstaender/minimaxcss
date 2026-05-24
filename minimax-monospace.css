@@ -1,0 +1,22 @@
+:root {
+  --font: var(--font-monospace);
+  --webkit-font-smoothing: auto;
+  --font-size: var(--font-size-monospace);
+  --ornament: "*";
+  --paragraph-hyphens: unset;
+  --paragraph-text-alignment: unset;
+  @media print {
+    --line-height: 1.45;
+    --font-size-monospace: 85%;
+  }
+}
+
+@media print {
+  :root {
+
+  }
+}
+
+hr {
+  color: var(--text-color);
+}

@@ -68,7 +68,7 @@ table {
         position: sticky;
         top: 0;
       }
-      &:has(tbody th), &.sticky-headings  {
+      &:has(tbody th), &.sticky-headings, &:has(tbody td strong)  {
         thead tr th:first-child,
         tr td:first-child {
           position: sticky;

@@ -8,8 +8,9 @@
 * [Text](https://pstaender.github.io/minimaxcss/examples/text.html)
 * [Large Tables](https://pstaender.github.io/minimaxcss/examples/tables.html)
 * [Article](https://pstaender.github.io/minimaxcss/examples/article.html)
-* [Book I](https://pstaender.github.io/minimaxcss/examples/book.html)
-* [Book II](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
+* [Book](https://pstaender.github.io/minimaxcss/examples/book.html)
+* [Picture book](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
+* [Monospace](https://pstaender.github.io/minimaxcss/examples/monospace.html)
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
 * [List of examples](https://pstaender.github.io/minimaxcss/examples/)
 
@@ -33,10 +34,16 @@ Use a DIN-A4-like human-readable-layout for screen and print:
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-din-a4.css" />
 ```
 
-Use alternate free modern fonts (instead of `Arial` and `Times New Roman`):
+Use alternate free modern fonts (uses `Inter` instead of `Arial`, `Lora` instead of `Times New Roman`, `Fira Code` for monospace fonts – with ligatures enabled – except for `<code>`):
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-alternate-fonts.css" />
+```
+
+Use monospace as font for everythong:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-monospace.css" />
 ```
 
 #### Little js magic for smoother UX
