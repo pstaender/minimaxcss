@@ -7,6 +7,10 @@
 }
 :root {
   --max-readable-width: 50rem;
+  @media screen and (max-width: 1200px) {
+    --font-size: 17px;
+    --max-readable-width: 40rem;
+  }
   @media screen and (min-width: 40rem), print {
     --paragraph-hyphens: auto;
     --paragraph-text-alignment: justify;
