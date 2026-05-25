@@ -164,6 +164,8 @@ button.call-to-action,
   font-weight: var(--font-weight-semi-bold);
   background: var(--accent-color);
   color: var(--accent-text-color);
+  text-decoration: none;
+  display: inline-block;
 }
 
 small {

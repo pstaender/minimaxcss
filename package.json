@@ -1,6 +1,6 @@
 {
   "name": "minimaxcss",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Minimal css effort with maximum layout outcome ",
   "main": "minimax.mjs",
   "directories": {

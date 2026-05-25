@@ -18,6 +18,8 @@ table {
   td,
   th {
     border: var(--border-size) solid var(--border-color);
+    padding: var(--space-small) var(--space);
+    font-size: 1rem;
   }
   @media print {
     border-spacing: 0;
@@ -37,10 +39,6 @@ table {
       outline: var(--border-size) solid var(--border-color);
       border: var(--border-size) solid var(--border-color);
     }
-  }
-  td,
-  th {
-    padding: var(--space-small) var(--space);
   }
   tbody {
     tr {
