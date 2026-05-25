@@ -15,12 +15,12 @@
   --font-family-monospace:
     ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono,
     monospace;
-  --font-size-monospace: 90%;
+  --font-size-monospace: .85em;
   --font-monospace: var(--font-weight-monospace, 500) var(--font-size-monospace)
     var(--font-family-monospace);
   --font-family-serif:
     "Times New Roman", Times, source-serif-pro, Georgia, Cambria, serif;
-  --font-size-serif: 110%;
+  --font-size-serif: 1.1em;
   --font-weight-serif: normal;
   --font-serif: var(--font-weight-serif) var(--font-size-serif)
     var(--font-family-serif);
@@ -32,12 +32,6 @@
   --space-small: 0.5rem;
 
   --paragraph-vertical-margin: var(--space);
-
-  /*::selection {
-      background: #79ffe1;
-      color: #000;
-      sf pro text,sf pro icons,helvetica neue,helvetica,arial,sans-serif
-  }*/
 
   --form-input-height: 2.75em;
 

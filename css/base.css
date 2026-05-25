@@ -100,6 +100,10 @@ pre {
   overflow-x: auto;
   font-size: 1rem;
   line-height: 1;
+  @media print {
+    overflow: inherit;
+    white-space: break-spaces;
+  }
 }
 
 code {
@@ -212,6 +216,7 @@ hr:has(+ hr) {
   figure,
   pre,
   picture,
+  img,
   tr {
     page-break-inside: avoid;
   }
