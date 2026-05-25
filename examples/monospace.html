@@ -61,7 +61,6 @@
       const text = `#### IBM: The Sleeping Giant Wakes Up
 
 At the start of the 1980s, IBM was the biggest computer company in the world. People called it "Big Blue." For many years, IBM had built huge, expensive computers for banks, governments, and large businesses. But small companies like Apple were selling personal computers, and IBM did not want to be left behind. In 1981, IBM released the IBM PC. It was a big success because business customers trusted the IBM name. To build the PC quickly, IBM made one big mistake: they used parts that other companies could also buy, and they let a small company called Microsoft provide the operating system. Soon, other companies started making "IBM-compatible" computers that worked just like the IBM PC but cost less. By the end of the 1980s, IBM was still powerful, but it was slowly losing control of the market it had helped create.
-
 <br><br>
 
 #### Apple: The Rebel with a New Idea
@@ -102,6 +101,36 @@ Table Header-1 | Table Header-2 | Table Header-3
 **Table Data-1** | Table Data-2 | Table Data-3
 **TD-4** | Td-5 | TD-6
 **Table Data-7** | Table Data-8 | Table Data-9
+
+<br><br>
+
+## \`<pre>\` and \`<code>\`
+
+\`\`\`
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+diam nonumy eirmod tempor invidunt ut labore et dolore magna
+aliquyam erat, sed diam voluptua. At vero eos et accusam et
+justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
+dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+sed diam voluptua.
+\`\`\`
+
+<pre>
+      ┌─┬┐  ╔═╦╗  ╓─╥╖  ╒═╤╕
+      │ ││  ║ ║║  ║ ║║  │ ││
+      ├─┼┤  ╠═╬╣  ╟─╫╢  ╞═╪╡
+      └─┴┘  ╚═╩╝  ╙─╨╜  ╘═╧╛
+      ┌───────────────────┐
+      │  ╔═══╗ Some Text  │▒
+      │  ╚═╦═╝ in the box │▒
+      ╞═╤══╩══╤═══════════╡▒
+      │ ├──┬──┤           │▒
+      │ └──┴──┘           │▒
+      └───────────────────┘▒
+       ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+</pre>
 
 `;
       document.querySelector("main article").innerHTML = marked.parse(text);
