@@ -59,7 +59,7 @@ Use monospace as font for everythong:
 
 * `.invisible` (equal to `visibility: hidden`), `.dont-display`, `.dont-screen` (don't show on screen) and `.dont-print` (don't show on print)
 * `hr.ornament` (fancy hr with dotted border and ornament)
-* `picture.float`, `picture.float.left` (float images inside sections)
+* `<aside><picture/></aside>`, `<aside><figure/></aside>` and `<aside class="left"><picture/></aside>` (float images inside sections)
 * `p.initial-letter` (fancy first letter)
 * `.no-smooth-scroll` (opt-out of smooth-scrolling-behaviour)
 * `table.sticky-headings` (forces sticky first row and first column)

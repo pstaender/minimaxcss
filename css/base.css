@@ -127,7 +127,9 @@ figure {
   clear: both;
 }
 
-article:has(> section + section), article:has(> nav), article:has(> footer) {
+article:has(> section + section),
+article:has(> nav),
+article:has(> footer) {
   display: var(--article-with-sections-view, flex);
   flex-direction: column;
   gap: var(--article-with-sections-gap, var(--space));
@@ -159,7 +161,7 @@ p.initial-letter::first-letter {
   font-weight: bold;
   margin-right: var(--space-small);
   /* only works in chrome so far */
-  supports(initial-letter: var(--initial-letter, 3)) {
+  @supports (initial-letter: var(--initial-letter, 3)) {
     initial-letter: var(--initial-letter, 3);
     float: none;
     line-height: inherit;
@@ -179,6 +181,32 @@ figure {
   margin: var(--space) 0;
   figcaption {
     font-style: italic;
+  }
+}
+
+aside > picture,
+aside > figure {
+  margin-bottom: var(--space);
+  margin-top: 0.4em;
+  width: 100%;
+  img {
+    width: inherit;
+  }
+}
+
+@media screen and (min-width: 550px), print {
+  aside > picture,
+  aside > figure {
+    float: right;
+    margin-left: var(--space);
+    max-width: 50%;
+    width: inherit;
+  }
+  aside.left > picture,
+  aside.left > figure {
+    float: left;
+    margin-left: 0;
+    margin-right: var(--space);
   }
 }
 
@@ -296,30 +324,6 @@ hr.ornament {
   }
 }
 
-picture.float {
-  display: block;
-  margin-bottom: var(--space);
-  margin-top: 0.4em;
-  width: 100%;
-  img {
-    width: inherit;
-  }
-}
-
-@media screen and (min-width: 550px), print {
-  picture.float {
-    float: right;
-    margin-left: var(--space);
-    max-width: 50%;
-    width: inherit;
-    &.left {
-      float: left;
-      margin-left: 0;
-      margin-right: var(--space);
-    }
-  }
-}
-
 p {
   &:has(.float) {
     overflow: hidden;
@@ -416,12 +420,10 @@ dialog {
   box-shadow: var(--box-shadow);
   padding: var(--space);
   max-width: var(--max-readable-width);
-
   button[icon="x"] {
     float: right;
     transform: translateX(0.15em) translateY(-0.15em);
   }
-
 }
 
 button[icon="x"] {

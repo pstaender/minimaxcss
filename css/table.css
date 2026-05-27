@@ -4,7 +4,6 @@ table {
   width: 100%;
   border-spacing: var(--border-spacing, var(--space-small));
   border-collapse: collapse;
-  /*border-style: hidden;*/
   border: var(--border-size) solid var(--border-color);
 
   thead,
@@ -19,7 +18,20 @@ table {
   th {
     border: var(--border-size) solid var(--border-color);
     padding: var(--space-small) var(--space);
-    font-size: 1rem;
+    text-align: var(--text-align, inherit);
+    /* fixes ios display issue */
+    @media (pointer: coarse) {
+      font-size: 1rem;
+    }
+    &[align="left"] {
+      text-align: left;
+    }
+    &[align="right"] {
+      text-align: right;
+    }
+    &[align="center"] {
+      text-align: center;
+    }
   }
   @media print {
     border-spacing: 0;

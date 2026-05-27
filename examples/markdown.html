@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../minimax-serif.css" disabled />
     <link rel="stylesheet" href="../minimax-alternate-fonts.css" disabled />
     <link rel="stylesheet" href="../minimax-monospace.css" disabled />
+    <link rel="stylesheet" href="../minimax-tufte.css" disabled />
     <script src="../minimax.mjs" type="module"></script>
   </head>
 
@@ -27,6 +28,7 @@
                 <option value="alternate">Alternate</option>
                 <option value="monospace">Monospace</option>
                 <option value="alternate+serif">Alternate Serif</option>
+                <option value="tufte+serif">Tufte</option>
               </select>
             </section>
           </small>
@@ -37,6 +39,7 @@
         </form>
         <article id="output"></article>
         <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked-footnote/dist/index.umd.min.js"></script>
         <script type="module">
           const localStorageKey = `markdown-text`;
           const textarea = document.querySelector("#demo textarea");
@@ -111,7 +114,9 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             }
 
             document.querySelector("main #output").innerHTML =
-              `<section>${marked.parse(textarea.value)}</section>`;
+              `<section>${new marked.Marked()
+                .use(markedFootnote())
+                .parse(textarea.value)}</section>`;
             let title = document
               .querySelector("main #output")
               .querySelector("h1,h2,h3,h4,h5,h6")?.textContent;
@@ -131,8 +136,12 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             const monospace = document.querySelector(
               `link[href*="minimax-monospace.css"]`,
             );
-            serif.disabled = !/serif/.test(value);
+            const tufte = document.querySelector(
+              `link[href*="minimax-tufte.css"]`,
+            );
+            serif.disabled = !/(serif|tufte)/.test(value);
             alternate.disabled = !/(alternate|monospace)/.test(value);
+            tufte.disabled = !/tufte/.test(value);
             monospace.disabled = !/monospace/.test(value);
           }
 
@@ -151,7 +160,6 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             textarea {
               width: 100%;
               min-height: 8em;
-              /*resize: none;*/
             }
           }
           #font-check {
