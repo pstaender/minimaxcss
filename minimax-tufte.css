@@ -27,11 +27,6 @@
   font-style: normal;
 }
 
-.numeral,
-.sidenote-number {
-  font-family: et-book-roman-old-style;
-}
-
 :root {
   --max-readable-width: 70rem;
   --font-size-serif: 19px;
@@ -104,18 +99,24 @@ main {
       font-family: var(--sidenote-font-family);
     }
   }
+
+  .numeral,
+  .sidenote-number {
+    font-family: et-book-roman-old-style;
+  }
 }
 table {
   --border-color: none;
-  --color-gray-light: rgba(200, 200, 200, 0.1);
+  /*--color-gray-light: rgba(200, 200, 200, 0.1);*/
   font-size: var(--sidenote-font-size);
   @media print {
     border: 0px;
+    --color-gray-light: none;
   }
-  border-bottom: var(--border-size) solid currentColor;
+  border-bottom: 2px solid currentColor;
   thead {
-    border-top: var(--border-size) solid currentColor;
-    border-bottom: calc(0.5 * var(--border-size)) solid currentColor;
+    border-top: 2px solid currentColor;
+    border-bottom: 1px solid currentColor;
   }
   tr th {
     --text-align: left;
@@ -139,9 +140,12 @@ blockquote {
   > aside {
     margin-left: calc(2 * var(--space));
   }
-  > aside {
-    text-align: right;
+  footer,
+  aside {
     font-size: var(--sidenote-font-size);
+  }
+  aside {
+    text-align: right;
   }
 }
 h1,
@@ -163,3 +167,13 @@ em strong {
   padding: 0;
   color: currentColor;
 }
+/*@media print {
+  table,
+  pre:has(> code) {
+    --color-gray-light: none;
+  }
+  pre:has(> code) {
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+}*/
