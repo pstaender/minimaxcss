@@ -34,16 +34,20 @@
     et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua",
     Georgia, serif;
   --font-size-monospace: 0.8em;
+  --main-column-width: 75%;
+  --column-gap: var(--space);
+  --color-gray-light: #f6f6f6;
+
   @media print {
     --font-size: 14px;
     --font-size-serif: 14px;
     --font-size-monospace: 0.7em;
+    /*--color-gray-light: none;*/
+    --main-column-width: 70%;
   }
   @media screen and (max-width: 1200px) {
     --max-readable-width: 60rem;
   }
-  --main-column-width: 75%;
-  --column-gap: var(--space);
 
   --sidenote-font-family: et-book-roman-old-style;
   --sidenote-margin-right: calc(-1 * calc(100% - var(--main-column-width)));
@@ -51,6 +55,7 @@
   --sidenote-text-align: center;
   --sidenote-font-size: 0.9rem;
   --sidenote-right-position: 0;
+  --sidenote-extra-space: 5rem;
   --paragraph-hyphens: none;
   --paragraph-text-alignment: inherit;
   @media screen and (min-width: 900px), print {
@@ -74,44 +79,69 @@ main > figure {
   padding-right: var(--column-gap);
 }
 main {
-  figcaption,
-  .sidenote {
-    float: var(--sidenote-float);
-    clear: var(--sidenote-float);
-    margin-right: var(--sidenote-margin-right);
-    width: calc(100% - var(--main-column-width) - var(--column-gap));
-    text-align: var(--sidenote-text-align);
-    font-style: normal;
-    font-size: var(--sidenote-font-size);
+  figure figcaption {
+    margin-bottom: 0.5rem;
+    text-align: center;
   }
-  .sidenote {
-    transform: translateY(0.5em);
-  }
-
-  .sidenote[data-index] {
-    &:before {
-      content: attr(data-index);
-      padding-right: 0.25em;
-      transform: translateY(-0.25em);
-      float: left;
-      font-size: 0.8em;
-      vertical-align: baseline;
-      font-family: var(--sidenote-font-family);
+  @media screen and (min-width: 1200px), print {
+    figure:not(.extra-wide) figcaption,
+    .sidenote {
+      float: var(--sidenote-float);
+      clear: var(--sidenote-float);
+      text-align: var(--sidenote-text-align);
+      font-size: var(--sidenote-font-size);
+      margin-right: calc(
+        var(--sidenote-margin-right) - var(--sidenote-extra-space)
+      );
+      margin-bottom: 0;
+      width: calc(
+        100% - var(--main-column-width) - var(--column-gap) +
+          var(--sidenote-extra-space)
+      );
+      font-style: normal;
     }
-  }
+    .sidenote {
+      transform: translateY(0.5em);
+    }
 
-  .numeral,
-  .sidenote-number {
-    font-family: et-book-roman-old-style;
+    .sidenote[data-index] {
+      &:before {
+        content: attr(data-index);
+        padding-right: 0.25em;
+        transform: translateY(-0.25em);
+        float: left;
+        font-size: 0.8em;
+        vertical-align: baseline;
+        font-family: var(--sidenote-font-family);
+      }
+    }
+
+    .sidenote-number {
+      font-family: et-book-roman-old-style;
+    }
+    figure.extra-wide {
+      --sidenote-extra-space: 0;
+      /*width: calc(100% + var(--extra-space));*/
+      width: 150%;
+      margin-left: calc(-0.5 * var(--sidenote-extra-space));
+      @media screen and (min-width: 1200px) {
+        --extra-space: var(--sidenote-extra-space);
+      }
+
+      figcaption {
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-size: var(--font-size-serif);
+      }
+    }
   }
 }
 table {
-  --border-color: none;
-  /*--color-gray-light: rgba(200, 200, 200, 0.1);*/
   font-size: var(--sidenote-font-size);
+  --border-color: none;
+
   @media print {
     border: 0px;
-    --color-gray-light: none;
   }
   border-bottom: 2px solid currentColor;
   thead {
@@ -167,13 +197,11 @@ em strong {
   padding: 0;
   color: currentColor;
 }
-/*@media print {
-  table,
-  pre:has(> code) {
-    --color-gray-light: none;
+ul li,
+ol li {
+  &::marker {
+    font-size: 0.85em;
+    transform: translateY(-0.1em);
+    font-family: et-book;
   }
-  pre:has(> code) {
-    border-top: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-  }
-}*/
+}
