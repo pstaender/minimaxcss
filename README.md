@@ -12,7 +12,7 @@
 * [Picture book](https://pstaender.github.io/minimaxcss/examples/max_moritz.html)
 * [Monospace](https://pstaender.github.io/minimaxcss/examples/monospace.html)
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
-* [List of examples](https://pstaender.github.io/minimaxcss/examples/)
+* [E. Tufte Theme](https://pstaender.github.io/minimaxcss/examples/tufte.html)
 
 ### Usage
 

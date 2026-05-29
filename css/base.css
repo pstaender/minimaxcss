@@ -356,7 +356,8 @@ table {
 
 li > ol,
 li > ul {
-  margin: var(--space-small) 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 hr {
