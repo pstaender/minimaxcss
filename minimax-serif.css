@@ -4,6 +4,7 @@
   --font-size: var(--font-size-serif);
   --font-size-monospace: 0.85rem;
   --ornament: "❦";
+  --text-indent-after-first-paragraph: 1.5rem;
   @media print {
     --font-size: 12pt;
     --line-height: 1.45;
@@ -13,7 +14,7 @@
 article,
 section {
   > p + p {
-    text-indent: 1.5rem;
+    text-indent: var(--text-indent-after-first-paragraph);
   }
 }
 

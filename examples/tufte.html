@@ -40,14 +40,14 @@
     <style>
       :root {
         @media screen and (max-width: 1200px) {
-          .sidenote {
-            display: none;
+          sup:has(.sidenote) {
+            vertical-align: baseline;
+            font-size: 1em;
+            > a {
+              font-size: 0.7em;
+              vertical-align: 0.5em;
+            }
           }
-          --sidenote-position: relative;
-          --sidenote-font-size: 1rem;
-          --sidenote-right-position: unset;
-          --main-column-width: 100%;
-          --column-gap: 0;
         }
       }
       sup a[data-footnote-ref] {

@@ -34,9 +34,10 @@
     et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua",
     Georgia, serif;
   --font-size-monospace: 0.8em;
-  --main-column-width: 75%;
+  --main-column-width: inherit;
   --column-gap: var(--space);
   --color-gray-light: #f6f6f6;
+  --text-indent-after-first-paragraph: 0;
 
   @media print {
     --font-size: 14px;
@@ -44,6 +45,9 @@
     --font-size-monospace: 0.7em;
     /*--color-gray-light: none;*/
     --main-column-width: 70%;
+  }
+  @media screen and (min-width: 900px) {
+    --main-column-width: 75%;
   }
   @media screen and (max-width: 1200px) {
     --max-readable-width: 60rem;
@@ -53,7 +57,7 @@
   --sidenote-margin-right: calc(-1 * calc(100% - var(--main-column-width)));
   --sidenote-float: none;
   --sidenote-text-align: center;
-  --sidenote-font-size: 0.9rem;
+  --sidenote-font-size: 1em;
   --sidenote-right-position: 0;
   --sidenote-extra-space: 5rem;
   --paragraph-hyphens: none;
@@ -61,6 +65,7 @@
   @media screen and (min-width: 900px), print {
     --sidenote-float: right;
     --sidenote-text-align: left;
+    --sidenote-font-size: 0.9rem;
   }
   @media print {
     --sidenote-font-size: 0.7rem;
@@ -83,7 +88,7 @@ main {
     margin-bottom: 0.5rem;
     text-align: center;
   }
-  @media screen and (min-width: 1200px), print {
+  @media screen and (min-width: 900px), print {
     figure:not(.extra-wide) figcaption,
     .sidenote {
       float: var(--sidenote-float);
@@ -123,6 +128,8 @@ main {
       --sidenote-extra-space: 0;
       /*width: calc(100% + var(--extra-space));*/
       width: 150%;
+      width: calc(133% + (1.5 * var(--space)));
+      width: calc(100% / var(--main-column-width)) + (1.5 * var(--space)));
       margin-left: calc(-0.5 * var(--sidenote-extra-space));
       @media screen and (min-width: 1200px) {
         --extra-space: var(--sidenote-extra-space);
@@ -132,6 +139,26 @@ main {
         text-align: center;
         margin-bottom: 0.5rem;
         font-size: var(--font-size-serif);
+      }
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .sidenote {
+      float: none;
+      display: inline;
+      text-align: inherit;
+      font-size: var(--sidenote-font-size);
+      margin: 0;
+      width: inherit;
+      font-style: normal;
+      &:before {
+        content: " (";
+      }
+      &:after {
+        content: ") ";
+      }
+      > p {
+        display: inline;
       }
     }
   }
