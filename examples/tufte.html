@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="../minimax-tufte.css" />
   </head>
 
-  <body>
+  <body class="show-sidenote-on-hover">
     <main>
-      <section></section>
+      <article><section></section></article>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked-footnote/dist/index.umd.min.js"></script>
@@ -28,28 +28,22 @@
         document.querySelectorAll("main section sup > a").forEach((a) => {
           let div = document.createElement("div");
           div.classList.add("sidenote");
-          div.innerHTML = document.querySelector(
-            a.getAttribute("href"),
-          ).innerHTML;
-          div.dataset.index = a.textContent;
+          div.innerHTML = document
+            .querySelector(a.getAttribute("href"))
+            .innerHTML.trim();
+          div.dataset.index = a.textContent.trim();
           div.querySelector("a[data-footnote-backref]")?.remove();
           a.after(div);
+          a.addEventListener(
+            "click",
+            (e) =>
+              window.matchMedia("(pointer: coarse)").matches &&
+              e.preventDefault(),
+          );
         });
       })();
     </script>
     <style>
-      :root {
-        @media screen and (max-width: 1200px) {
-          sup:has(.sidenote) {
-            vertical-align: baseline;
-            font-size: 1em;
-            > a {
-              font-size: 0.7em;
-              vertical-align: 0.5em;
-            }
-          }
-        }
-      }
       sup a[data-footnote-ref] {
         color: currentColor;
         text-decoration: none;
