@@ -5,6 +5,14 @@
 @page:first {
   margin-top: 1.1cm;
 }
+
+@page landscape-page {
+  size: landscape;
+}
+
+body.landscape {
+  page: landscape-page;
+}
 :root {
   --max-readable-width: 50rem;
   @media screen and (max-width: 1200px) {

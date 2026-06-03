@@ -18,20 +18,27 @@
     <main>
       <div id="demo">
         <form class="form dont-print">
-          <small>
-            <section id="font-check">
-              <label for="font">Fonts</label>
-
-              <select id="font">
-                <option value="default">Default</option>
-                <option value="serif">Serif</option>
-                <option value="alternate">Alternate</option>
-                <option value="monospace">Monospace</option>
-                <option value="alternate+serif">Alternate Serif</option>
-                <option value="tufte+serif">Tufte</option>
-              </select>
-            </section>
-          </small>
+          <section>
+            <small>
+              <section>
+                <section id="font-check">
+                  <label for="font">Fonts</label>
+                  <select id="font">
+                    <option value="default">Default</option>
+                    <option value="serif">Serif</option>
+                    <option value="alternate">Alternate</option>
+                    <option value="monospace">Monospace</option>
+                    <option value="alternate+serif">Alternate Serif</option>
+                    <option value="tufte+serif">Tufte</option>
+                  </select>
+                </section>
+                <section>
+                  <label for="landscape">Landscape 🖨️</label>
+                  <input type="checkbox" id="landscape" name="landscape" />
+                </section>
+              </section>
+            </small>
+          </section>
           <section>
             <textarea></textarea>
             <br />
@@ -120,9 +127,7 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             let title = document
               .querySelector("main #output")
               .querySelector("h1,h2,h3,h4,h5,h6")?.textContent;
-            if (title) {
-              document.title = title;
-            }
+            document.title = title || "text " + new Date().toLocaleString();
           };
           textarea.addEventListener("keyup", updateHtml);
 
@@ -148,6 +153,11 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
           document.querySelector("#font").addEventListener("change", (ev) => {
             enableAndDisableCSS(ev.target.value);
           });
+          document
+            .querySelector("#landscape")
+            .addEventListener("change", (ev) => {
+              document.body.classList.toggle("landscape", ev.target.checked);
+            });
           updateHtml(
             null,
             sessionStorage.getItem(localStorageKey) || defaultText,
@@ -162,7 +172,8 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
               min-height: 8em;
             }
           }
-          #font-check {
+          #demo form > section:first-child {
+            display: block;
             padding: 2px 4px;
             box-shadow: none;
             background: #888;
@@ -177,12 +188,12 @@ Let us do some links - this for example: https://pstaender.github.io/minimaxcss/
             }
 
             @media screen and (min-width: 900px) {
-              box-shadow: var(--box-shadow);
               padding: var(--space);
-              border-radius: 10px;
+              border-radius: 4px;
               font-size: 1rem;
               background: #fff;
               color: #000;
+              border: 4px double var(--color-gray);
               font-size: var(--font-size-small);
             }
           }

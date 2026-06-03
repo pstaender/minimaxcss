@@ -127,6 +127,7 @@ figure {
   clear: both;
 }
 
+section:has(> section + section),
 article:has(> section + section),
 article:has(> nav),
 article:has(> footer) {

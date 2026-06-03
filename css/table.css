@@ -33,12 +33,6 @@ table {
       text-align: center;
     }
   }
-  @media print {
-    border-spacing: 0;
-    --border-size: 0.2pt;
-    --border-color: currentColor;
-    border: var(--border-size) solid currentColor;
-  }
   caption {
     caption-side: var(--caption-side, bottom);
     font-style: italic;
@@ -58,6 +52,17 @@ table {
     }
     tr:nth-child(2n) {
       background: var(--color-gray-light);
+    }
+  }
+
+  @media print {
+    border-spacing: 0;
+    --border-size: 0.5pt;
+    --border-color: #000;
+
+    border: var(--border-size) solid currentColor;
+    thead th {
+      outline: none;
     }
   }
 

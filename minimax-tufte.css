@@ -121,7 +121,7 @@ main {
 
     .sidenote[data-index] {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr 100%;
       gap: 0.25em;
       &:before {
         content: attr(data-index);
