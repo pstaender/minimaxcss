@@ -1,0 +1,145 @@
+@media print {
+  .minmax-editor {
+    display: none;
+  }
+}
+@media screen {
+  .minimax-editor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    font-size: 14px;
+    padding: var(--space);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space);
+    font-family:
+      Menlo,
+      Consolas,
+      ui-monospace,
+      SFMono-Regular,
+      SF Mono,
+      Liberation Mono,
+      monospace;
+    .file-drop-area {
+      button + input[type="file"] {
+        display: none;
+      }
+    }
+
+    details:has(> section) {
+      > summary {
+        padding: 5px var(--space);
+      }
+
+      font-size: 80%;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 1em;
+      border: 1.5px solid #999;
+      border-radius: 2px;
+    }
+    sidebar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      button,
+      select {
+        font-size: 12px;
+        padding: 2px 4px;
+      }
+    }
+    .collapse-bar {
+      --size: 15px;
+
+      height: var(--size);
+      position: relative;
+      input {
+        visibility: hidden;
+        position: absolute;
+      }
+      button {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+      }
+    }
+    &.vertical {
+      right: 0;
+      width: min(600px, 50vw);
+      height: 100%;
+      left: inherit;
+      textarea {
+        height: 100%;
+      }
+      &:has(.collapse-bar) {
+        padding-right: calc(1rem + var(--space));
+      }
+      .collapse-bar {
+        position: absolute;
+        right: 5px;
+        height: calc(100% - 2 * var(--space));
+        button {
+          width: var(--size);
+        }
+        width: var(--size);
+      }
+      &:has(.collapse-bar input:checked) {
+        width: 10px;
+        padding-right: 10px;
+        > *:not(.collapse-bar) {
+          display: none;
+        }
+      }
+    }
+    &:not(.vertical) {
+      .collapse-bar {
+        height: var(--size);
+        width: 100%;
+        button {
+          width: 100%;
+        }
+      }
+      &:has(.collapse-bar input:checked) {
+        height: calc(1rem + 2 * var(--space));
+        padding-bottom: 10px;
+        > *:not(.collapse-bar) {
+          display: none;
+        }
+      }
+    }
+  }
+  [editable="minimax"] {
+    > section,
+    > aside,
+    > header,
+    > hgroup,
+    > footer,
+    > figure {
+      &.is-selected-for-editing,
+      &:hover {
+        outline-offset: 5px;
+        outline: 2px dashed
+          light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+        cursor: pointer;
+      }
+    }
+  }
+  body:has(.minimax-editor.vertical .collapse-bar input:not(:checked)) {
+    padding-right: min(600px, 50vw);
+  }
+  body:has(.minimax-editor:not(.vertical)) {
+    margin-bottom: 280px;
+  }
+}

@@ -14,6 +14,10 @@
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
 * [E. Tufte Theme](https://pstaender.github.io/minimaxcss/examples/tufte.html)
 
+### Editor Demo
+
+Try out the [browser based editor](https://pstaender.github.io/minimaxcss/editor/editor.html). You can import, edit and export html documents. The minimax-stylesheets can be switched on and off.
+
 ### Usage
 
 ```html

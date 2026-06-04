@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <title>minimax editor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-din-a4.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-alternate-fonts.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-monospace.css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-serif.css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-tufte.css"
+      disabled
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.mjs"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="./minimax-editor.css" exclude-from-export />
+  </head>
+  <body>
+    <main>
+      <article editable="minimax"></article>
+      <minimax-editor class="dont-print vertical">
+        <markdown-editor></markdown-editor>
+        <sidebar>
+          <drop-file></drop-file>
+          <export-file></export-file>
+          <move-up></move-up>
+          <move-down></move-down>
+          <duplicate></duplicate>
+          <insert-after></insert-after>
+          <delete></delete>
+          <new-document></new-document>
+          <element-tags></element-tags>
+        </sidebar>
+        <details autoheight>
+          <summary>styles</summary>
+          <section>
+            <section>
+              <stylesheets></stylesheets>
+            </section>
+          </section>
+        </details>
+        <collapse-bar></collapse-bar>
+      </minimax-editor>
+      <script type="module">
+        import { MiniMaxEditor } from "./minimax-editor.js";
+        const editor = new MiniMaxEditor();
+        await editor.setup();
+        await editor.loadLatestDocument();
+        console.log("MiniMaxEditor is ready 🚀");
+      </script>
+    </main>
+  </body>
+</html>
