@@ -118,6 +118,12 @@ pre:has(> code) {
   line-height: var(--line-height);
   > code {
     padding: 0;
+    white-space: pre-line;
+    @media screen and (max-width: 900px) {
+      &[class*="language-"] {
+        white-space: break-spaces;
+      }
+    }
   }
 }
 
@@ -184,10 +190,12 @@ figure {
     font-style: italic;
   }
 }
-
+aside:has(> picture),
+aside:has(> figure) {
+  margin-bottom: var(--space);
+}
 aside > picture,
 aside > figure {
-  margin-bottom: var(--space);
   margin-top: 0.4em;
   width: 100%;
   img {
@@ -199,9 +207,15 @@ aside > figure {
   aside > picture,
   aside > figure {
     float: right;
+    width: inherit;
+  }
+  aside:has(> picture) {
+    float: right;
     margin-left: var(--space);
     max-width: 50%;
-    width: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-small);
   }
   aside.left > picture,
   aside.left > figure {
