@@ -484,7 +484,7 @@ export class MiniMaxEditor {
 
     const blob = new Blob(
       [
-        `<!DOCTYPE html>\n<html>\n<head>\n${head}\n</head>\n<body>\n<main>${(doc.querySelector("body main") || doc.querySelector("body")).innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`,
+        `<!DOCTYPE html>\n<html>\n<head><meta charset="utf-8">\n${head}\n</head>\n<body>\n<main>${(doc.querySelector("body main") || doc.querySelector("body")).innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`,
       ],
       {
         type: "text/html",
@@ -869,7 +869,7 @@ export class MiniMaxEditor {
         name: "untitled.html",
         title: this.#title || "Untitled",
         customStyle: this.#customStyle,
-        html: `<!DOCTYPE html>\n<html><head><title>${this.#title}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
+        html: `<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>${this.#title}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
       };
       return;
     }
@@ -878,7 +878,7 @@ export class MiniMaxEditor {
       name,
       title: this.#title,
       customStyle: this.#customStyle,
-      html: `<!DOCTYPE html>\n<html><head><title>${this.documentRecord.name}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
+      html: `<!DOCTYPE html>\n<html><head><meta charset="utf-8"><title>${this.documentRecord.name}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
     });
   }
   #handleMarkdownDrop(event) {
