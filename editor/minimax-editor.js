@@ -216,8 +216,13 @@ export class MiniMaxEditor {
       this.targetContainer.querySelector("markdown-editor");
 
     let textarea = document.createElement("textarea");
-    textarea.rows = 5;
-    window.tabOverride.set(textarea);
+    window.tabOverride
+      .tabSize(
+        this.markdownEditorContainer.dataset.tabSize !== undefined
+          ? Number(this.markdownEditorContainer.dataset.tabSize)
+          : 2,
+      )
+      .set(textarea);
     this.markdownEditorContainer.replaceWith(textarea);
     this.markdownEditorContainer = textarea;
 
