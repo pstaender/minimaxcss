@@ -5,6 +5,7 @@ import { marked } from "https://unpkg.com/marked/lib/marked.esm.js";
 import markedFootnote from "https://unpkg.com/marked-footnote/dist/index.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
 import "https://cdn.jsdelivr.net/npm/taboverride@4.0.3/build/output/taboverride.js";
+import katex from "https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.mjs";
 
 const db = new Dexie("MiniMaxEditor");
 
@@ -92,6 +93,7 @@ export class MiniMaxEditor {
   #customStyle = "";
   #customStyleSheetTextarea = null;
   #titleInput = null;
+  katex = katex;
 
   constructor(target) {
     this.#init(target);
@@ -362,6 +364,7 @@ export class MiniMaxEditor {
       );
     }
     editableSections.forEach((el) => this.#handleClickOnEditableSection(el));
+    this.#postRenderHTML(this.editableContainer);
     this.setTitle(title || doc.querySelector("title")?.innerText);
     this.#initStylesheetSelection();
   }
@@ -370,8 +373,29 @@ export class MiniMaxEditor {
       ev.stopPropagation();
       this.selectedElementForEditing = el;
       this.markdownEditorContainer.disabled = false;
+      let content = el.cloneNode(true);
+      if (this.katex) {
+        // insert pure math annotation for markdown
+        content.querySelectorAll("code.language-math").forEach((el) => {
+          if (!el) {
+            return;
+          }
+          el.textContent = el.querySelector(
+            ".katex-mathml annotation",
+          )?.textContent;
+        });
+        content.querySelectorAll("code.inline-math").forEach((el) => {
+          if (!el) {
+            return;
+          }
+          el.textContent =
+            "$ " +
+            el.querySelector(".katex-mathml annotation")?.textContent +
+            " $";
+        });
+      }
       this.markdownEditorContainer.value = this.turndownService.turndown(
-        el.innerHTML,
+        content.innerHTML,
       );
       this.markdownEditorContainer.focus();
       this.editableContainer
@@ -796,7 +820,48 @@ export class MiniMaxEditor {
         // remove single images wrapped in paragraphs
         .replace(/<p><img(.*?)><\/p>/g, "<img$1>");
       await this.#storeDocument();
+      this.#postRenderHTML(this.selectedElementForEditing);
     }
+  }
+  #postRenderHTML(element) {
+    if (!this.katex) {
+      return;
+    }
+    element
+      .querySelectorAll(
+        // :not selector prevents re-rendering
+        `code.language-math:not(.language-math:has(.katex-display))`,
+      )
+      .forEach((el) => {
+        this.katex.render(el.innerText, el, {
+          displayMode: true,
+          throwOnError: false,
+        });
+      });
+    element
+      .querySelectorAll(
+        // :not selector prevents re-rendering
+        `code:not(.inline-math)`,
+      )
+      .forEach((el) => {
+        if (el.querySelector(".katex-display")) {
+          return;
+        }
+        if (/^\$\s.+?\s\$$/.test(el.textContent)) {
+          let math = el.textContent
+            .replace(/^\$\s+/, "")
+            .replace(/\s+\$$/, "")
+            .trim();
+          if (!math) {
+            return;
+          }
+          el.classList.add("inline-math");
+          this.katex.render(math, el, {
+            displayMode: true,
+            throwOnError: false,
+          });
+        }
+      });
   }
   async #storeDocument(name = this.documentRecord.name) {
     if (!this.keepLatestDocumentsInLocalDatabase) {

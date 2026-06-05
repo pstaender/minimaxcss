@@ -1,0 +1,26 @@
+@import "https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.css";
+
+pre:has(code.language-math) {
+  background: none;
+}
+pre code.language-math .katex-display > .katex {
+  font-size: 125%;
+}
+code.inline-math {
+  display: inline-block;
+  background: none;
+  .katex-display {
+    display: inline-block;
+  }
+}
+figure:has(code.language-math) {
+  figcaption {
+    text-align: center;
+  }
+  figcaption + pre {
+    padding-top: 0;
+  }
+  pre:has(+ figcaption) {
+    padding-bottom: 0;
+  }
+}

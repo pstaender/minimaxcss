@@ -3,6 +3,9 @@
     display: none;
   }
 }
+[aria-hidden="true"] {
+  display: none;
+}
 @media screen {
   .minimax-editor {
     position: fixed;
