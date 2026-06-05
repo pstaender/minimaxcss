@@ -248,7 +248,7 @@ export class MiniMaxEditor {
       "figure",
       "figcaption",
       "div",
-      "sidenote",
+      "side-note",
     ]);
     this.turndownService.use(gfm);
   }

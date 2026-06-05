@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../minimax-tufte.css" />
   </head>
 
-  <body class="show-sidenote-on-hover">
+  <body class="show-side-note-on-hover">
     <main>
       <article><section></section></article>
     </main>
@@ -27,7 +27,7 @@
           .parse(await fetch("./tufte1.md").then((res) => res.text()));
         document.querySelectorAll("main section sup > a").forEach((a) => {
           let div = document.createElement("div");
-          div.classList.add("sidenote");
+          div.classList.add("side-note");
           div.innerHTML = document
             .querySelector(a.getAttribute("href"))
             .innerHTML.trim();

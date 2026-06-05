@@ -1,6 +1,6 @@
 # Introduction
 
-This document demonstrates the use of a number of advanced page layout features to produce an attractive and usable document inspired by the Tufte handout style and the use of Tufte's styles in RMarkdown documents [@xie2018]. The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte's style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. Quarto[^1] supports most of the layout techniques that are used in the Tufte handout style for both HTML and LaTeX/PDF output.
+This document demonstrates the use of a number of advanced page layout features to produce an attractive and usable document inspired by the Tufte handout style and the use of Tufte's styles in RMarkdown documents [@xie2018]. The Tufte handout style is a style that Edward Tufte uses in his books and handouts. Tufte's style is known for its extensive use of side notes, tight integration of graphics with text, and well-set typography. Quarto[^1] supports most of the layout techniques that are used in the Tufte handout style for both HTML and LaTeX/PDF output.
 
 [^1]: To learn more, you can read more about [Quarto](https://www.quarto.org) or visit [Quarto's Github repository](https://www.github.com/quarto-dev/quarto-cli).
 
@@ -47,7 +47,7 @@ citation-location: margin         # <2>
 ---
 ```
 
-1.  Increases the width of the margin to make more room for sidenotes and margin figures (HTML only).
+1.  Increases the width of the margin to make more room for side notes and margin figures (HTML only).
 2.  Places footnotes and cited sources in the margin. Other layout options (for example placing a figure in the margin) will be set per element in examples below.
 
 These layout features are designed with two important goals in mind:
@@ -94,11 +94,11 @@ Besides margin and full width figures, you can of course also include figures co
 
 When you include a figure constrained to the main column, you can choose to place the figure's caption in the margin by using the `cap-location` chunk option. For example:
 
-# Sidenotes
+# Side notes
 
-One of the most prominent and distinctive features of this style is the extensive use of sidenotes. There is a wide margin to provide ample room for sidenotes and small figures. Any use of a footnote will automatically be converted to a sidenote.
+One of the most prominent and distinctive features of this style is the extensive use of side notes. There is a wide margin to provide ample room for side notes and small figures. Any use of a footnote will automatically be converted to a side note.
 
-[This is a span that has the class `column-margin` which places it in the margin without the sidenote mark.]{.column-margin} If you'd like to place ancillary information in the margin without the sidenote mark (the superscript number), you can use apply the `column-margin` class to the element.
+[This is a span that has the class `column-margin` which places it in the margin without the side note mark.]{.column-margin} If you'd like to place ancillary information in the margin without the side note mark (the superscript number), you can use apply the `column-margin` class to the element.
 
 # References
 
