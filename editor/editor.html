@@ -26,6 +26,11 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-tufte-font.css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-tufte.css"
       disabled
     />
@@ -65,7 +70,12 @@
         import { MiniMaxEditor } from "./minimax-editor.js";
         const editor = new MiniMaxEditor();
         await editor.setup();
-        await editor.loadLatestDocument();
+        let doc = await editor.loadLatestDocument();
+        if (!doc) {
+          editor.setDocumentTitleAndHtml({
+            text: "Click on the text to change it…",
+          });
+        }
         console.log("MiniMaxEditor is ready 🚀");
       </script>
     </main>

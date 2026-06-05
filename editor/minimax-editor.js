@@ -96,6 +96,7 @@ export class MiniMaxEditor {
         !ev.target.closest('[editable="minimax"]') &&
         !ev.target.closest(".minimax-editor")
       ) {
+        this.markdownEditorContainer.disabled = true;
         this.selectedElementForEditing = null;
         this.markdownEditorContainer.value = "";
         // remove all .is-selected-for-editing classes
@@ -238,6 +239,7 @@ export class MiniMaxEditor {
     el.addEventListener("click", (ev) => {
       ev.stopPropagation();
       this.selectedElementForEditing = el;
+      this.markdownEditorContainer.disabled = false;
       this.markdownEditorContainer.value = this.turndownService.turndown(
         el.innerHTML,
       );
@@ -383,18 +385,30 @@ export class MiniMaxEditor {
       "afterend",
       newElement,
     );
+    newElement.classList.add("is-selected-for-editing");
+
+    this.selectedElementForEditing.classList.remove("is-selected-for-editing");
     this.selectedElementForEditing = newElement;
     this.markdownEditorContainer.value = newText;
     this.#handleClickOnEditableSection(newElement);
     this.#storeDocument();
   }
+  #makeElementSelectedForEditing(el) {
+    this.selectedElementForEditing = el;
+    this.selectedElementForEditing.click();
+  }
   #deleteElement() {
     if (!this.selectedElementForEditing) {
       return;
     }
+    // get next element of this.selectedElementForEditing
+    let nextElement = this.selectedElementForEditing.nextElementSibling;
     this.selectedElementForEditing.remove();
     this.selectedElementForEditing = null;
     this.markdownEditorContainer.value = "";
+    if (nextElement) {
+      this.#makeElementSelectedForEditing(nextElement);
+    }
     this.#storeDocument();
   }
   async deleteAllDocumentsExceptTheLatest() {
@@ -422,9 +436,23 @@ export class MiniMaxEditor {
     const title = prompt("Title of document", "Untitled");
     const name = (title || "untitled").replace(/(\.html)*$/i, ".html");
     await db.open();
+    this.setDocumentTitleAndHtml({ title, name });
+  }
+  async setDocumentTitleAndHtml({
+    name,
+    title = "Hello 👋",
+    html,
+    text = "Change text here…",
+  } = {}) {
+    if (!name) {
+      name = title;
+    }
+    if (!html) {
+      html = `<!doctype html>\n<html><head><title>${name}</title></head>\n<body><main><article editable="minimax"><section><h1>${title}</h1></section><section><p>${text}</p></section></article></main>\n</body></html>`;
+    }
     await updateOrCreateDocument({
       name,
-      html: `<!doctype html>\n<html><head><title>${name}</title></head>\n<body><main><article editable="minimax"><section><h1>${title}</h1></section><section><p>Change text here…</p></section></article></main>\n</body></html>`,
+      html,
     });
     await this.loadLatestDocument();
 
