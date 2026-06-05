@@ -381,6 +381,8 @@ export class MiniMaxEditor {
         el.closest("section") ||
         el.closest("figure") ||
         el.closest("footer") ||
+        el.closest("hgroup") ||
+        el.closest("header") ||
         el.closest("aside");
       parentElementSection.classList.add("is-selected-for-editing");
       if (this.elementTagsSelect) {
