@@ -99,7 +99,8 @@ main {
   }
   @media screen and (min-width: 900px), print {
     figure:not(.extra-wide) figcaption,
-    .sidenote {
+    .sidenote,
+    sidenote {
       margin-top: -0.11em;
       float: var(--sidenote-float);
       clear: var(--sidenote-float);
@@ -114,12 +115,11 @@ main {
           var(--sidenote-extra-space)
       );
       font-style: normal;
-    }
-    .sidenote {
       transform: translateY(0.5em);
     }
 
-    .sidenote[data-index] {
+    .sidenote[data-index],
+    sidenote[data-index] {
       display: grid;
       grid-template-columns: 1fr 100%;
       gap: 0.25em;
@@ -153,7 +153,8 @@ main {
     }
   }
   @media screen and (max-width: 900px) {
-    .sidenote {
+    .sidenote,
+    sidenote {
       float: none;
       display: inline;
       text-align: inherit;
@@ -175,7 +176,8 @@ main {
 }
 @media screen and (max-width: 900px) {
   .show-sidenote-on-hover {
-    .sidenote {
+    .sidenote,
+    sidenote {
       opacity: 0;
       position: absolute;
       transition: opacity var(--transition-duration);
@@ -189,7 +191,8 @@ main {
     }
     sup:has(> a):hover {
       cursor: pointer;
-      .sidenote {
+      .sidenote,
+      sidenote {
         opacity: 1;
         background: var(--background-color);
         padding: var(--space-small);

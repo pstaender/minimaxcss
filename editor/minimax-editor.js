@@ -2,6 +2,7 @@ import { Dexie } from "https://unpkg.com/dexie/dist/modern/dexie.mjs";
 import "https://unpkg.com/turndown/lib/turndown.browser.umd.js";
 import { gfm } from "https://unpkg.com/@truto/turndown-plugin-gfm";
 import { marked } from "https://unpkg.com/marked/lib/marked.esm.js";
+import markedFootnote from "https://unpkg.com/marked-footnote/dist/index.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
 
 const db = new Dexie("MiniMaxEditor");
@@ -121,6 +122,7 @@ export class MiniMaxEditor {
     this.#initStylesheetSelection();
     this.#initElementTagsSelect();
     this.#initTitleInput();
+    this.#initFullWidthToggle();
 
     document.querySelector("body").addEventListener("click", (ev) => {
       // clicked outside of editor or editable elements?
@@ -246,6 +248,7 @@ export class MiniMaxEditor {
       "figure",
       "figcaption",
       "div",
+      "sidenote",
     ]);
     this.turndownService.use(gfm);
   }
@@ -651,7 +654,7 @@ export class MiniMaxEditor {
     buttons.forEach(({ selector, action, name, nameShift }) => {
       let target = this.targetContainer.querySelector(selector);
       if (!target) {
-        console.warn(`Button with selector ${selector} not found`);
+        console.warn(`Button with selector ${selector} not found… Skipping`);
         return;
       }
       let button = document.createElement("button");
@@ -758,9 +761,24 @@ export class MiniMaxEditor {
     this.#titleInput = input;
     target.replaceWith(input);
   }
+  #initFullWidthToggle() {
+    let target = this.targetContainer.querySelector("full-width-toggle");
+    if (!target) {
+      return;
+    }
+    const section = document.createElement("section");
+    section.classList.add("full-width-toggle");
+    section.innerHTML = `<label for="toggle-fill-width"><button>↔</button></label><input id="toggle-fill-width" type="checkbox" />`;
+    const checkbox = section.querySelector('input[type="checkbox"]');
+    section
+      .querySelector("button")
+      .addEventListener("click", () => (checkbox.checked = !checkbox.checked));
+    target.replaceWith(section);
+  }
   async #handleMarkdownInput(event) {
     if (this.selectedElementForEditing) {
       this.selectedElementForEditing.innerHTML = marked
+        .use(markedFootnote)
         .parse(
           this.markdownEditorContainer.value.trim()
             ? this.markdownEditorContainer.value

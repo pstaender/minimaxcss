@@ -118,7 +118,7 @@ pre:has(> code) {
   line-height: var(--line-height);
   > code {
     padding: 0;
-    white-space: pre-line;
+    white-space: unset;
     @media screen and (max-width: 900px) {
       &[class*="language-"] {
         white-space: break-spaces;

@@ -90,9 +90,16 @@
         padding: 0;
       }
     }
+    .full-width-toggle button {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
     &.vertical {
       right: 0;
       width: min(600px, 50vw);
+      &:has(#toggle-fill-width:checked) {
+        width: 100%;
+      }
       height: 100%;
       left: inherit;
       textarea {
@@ -111,7 +118,7 @@
         width: var(--size);
       }
       &:has(.collapse-bar input:checked) {
-        width: 10px;
+        width: 10px !important;
         padding-right: 10px;
         > *:not(.collapse-bar) {
           display: none;
@@ -133,6 +140,11 @@
           display: none;
         }
       }
+    }
+  }
+  .full-width-toggle {
+    input {
+      display: none;
     }
   }
   [editable="minimax"] {
