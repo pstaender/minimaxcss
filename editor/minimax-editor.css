@@ -50,14 +50,29 @@
       border: 1.5px solid #999;
       border-radius: 2px;
     }
-    sidebar {
+    menu {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      padding: 0;
       button,
-      select {
+      select,
+      input[type="text"] {
         font-size: 12px;
+        padding: 4px;
+      }
+      input[type="text"] {
         padding: 2px 4px;
+      }
+      button {
+        &:before {
+          content: attr(aria-label);
+        }
+      }
+    }
+    &.shift-key-pressed {
+      menu button:before {
+        content: attr(data-shift-label);
       }
     }
     .collapse-bar {

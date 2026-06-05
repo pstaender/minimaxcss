@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>minimax editor</title>
+    <meta name="color-scheme" content="light dark" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.css"
@@ -45,22 +46,24 @@
       <article editable="minimax"></article>
       <minimax-editor class="dont-print vertical">
         <markdown-editor></markdown-editor>
-        <sidebar>
+        <menu>
           <drop-file></drop-file>
           <export-file></export-file>
           <move-up></move-up>
           <move-down></move-down>
           <duplicate></duplicate>
-          <insert-after></insert-after>
+          <insert></insert>
           <delete></delete>
           <new-document></new-document>
           <element-tags></element-tags>
-        </sidebar>
+          <title></title>
+        </menu>
         <details autoheight>
           <summary>styles</summary>
           <section>
             <section>
               <stylesheets></stylesheets>
+              <customStyle></customStyle>
             </section>
           </section>
         </details>

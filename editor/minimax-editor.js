@@ -2,8 +2,13 @@ import { Dexie } from "https://unpkg.com/dexie/dist/modern/dexie.mjs";
 import "https://unpkg.com/turndown/lib/turndown.browser.umd.js";
 import { gfm } from "https://unpkg.com/@truto/turndown-plugin-gfm";
 import { marked } from "https://unpkg.com/marked/lib/marked.esm.js";
+import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
 
 const db = new Dexie("MiniMaxEditor");
+
+function beautifyCSS(css) {
+  return window.css_beautify(css);
+}
 
 async function initDatabase() {
   db.version(1).stores({
@@ -13,6 +18,10 @@ async function initDatabase() {
 
 async function deleteDatabase() {
   db.delete();
+}
+
+async function getDocumentByName(name) {
+  return db.documents.where("name").equals(name).first();
 }
 
 async function getEditorSettings() {
@@ -31,29 +40,37 @@ async function updateEditorSettings(settings) {
   });
 }
 
-async function getDocumentByName(name) {
-  return await db.documents.where("name").equals(name).first();
-}
-
 async function getLatestDocument() {
   return await db.documents.orderBy("timestamp").last();
 }
 
-async function updateOrCreateDocument({ name, html } = {}) {
-  let existing = await db.documents.where("name").equals(name).first();
+async function updateOrCreateDocument({
+  name,
+  html,
+  title,
+  stylesheets,
+  customStyle,
+} = {}) {
+  let existing = await getDocumentByName(name);
   if (existing) {
     await db.documents.update(existing.id, {
       html,
+      title,
+      stylesheets,
+      customStyle,
       timestamp: new Date().getTime(),
     });
   } else {
     await db.documents.add({
       name,
       html,
+      title,
+      stylesheets,
+      customStyle,
       timestamp: new Date().getTime(),
     });
   }
-  return await db.documents.where("name").equals(name).first();
+  return await getDocumentByName(name);
 }
 
 export class MiniMaxEditor {
@@ -68,27 +85,42 @@ export class MiniMaxEditor {
     "hgroup",
   ];
 
+  #title = "";
+  #stylesheets = "";
+  #customStyle = "";
+  #customStyleSheetTextarea = null;
+  #titleInput = null;
+
   constructor(target) {
-    let html = (target || document.querySelector("minimax-editor")).innerHTML;
-    let classList = (
-      target || document.querySelector("minimax-editor")
-    ).classList.toString();
+    this.#init(target);
+  }
+  #init(
+    target = document.querySelector("minimax-editor") ||
+      document.querySelector(".minimax-editor"),
+  ) {
+    let html = target.innerHTML;
+    let classList = target.classList.toString();
     let div = document.createElement("div");
-    (target || document.querySelector("minimax-editor")).replaceWith(div);
+    target.replaceWith(div);
     this.targetContainer = div;
     this.targetContainer.setAttribute("class", classList);
     this.targetContainer.classList.add("minimax-editor");
     this.targetContainer.innerHTML = html;
-    this.sideBarContainer = this.targetContainer.querySelector("sidebar");
     if (!this.turndownService) {
       this.#initTurndown();
     }
 
+    this.#title = "";
+    this.#stylesheets = "";
+    this.#customStyle = "";
+    this.#customStyleSheetTextarea = null;
+    this.#titleInput = null;
     this.#initDropFile();
     this.#initMarkdownEditor();
     this.#initEditorButtons();
     this.#initStylesheetSelection();
     this.#initElementTagsSelect();
+    this.#initTitleInput();
 
     document.querySelector("body").addEventListener("click", (ev) => {
       // clicked outside of editor or editable elements?
@@ -105,6 +137,11 @@ export class MiniMaxEditor {
           .forEach((el) => el.classList.remove("is-selected-for-editing"));
       }
     });
+    const detectShiftKeyPressed = (ev) => {
+      this.targetContainer.classList.toggle("shift-key-pressed", ev.shiftKey);
+    };
+    window.addEventListener("keyup", detectShiftKeyPressed);
+    window.addEventListener("keydown", detectShiftKeyPressed);
   }
   async setup() {
     await initDatabase();
@@ -113,10 +150,14 @@ export class MiniMaxEditor {
   async loadLatestDocument() {
     this.documentRecord = await getLatestDocument();
     if (this.documentRecord) {
-      this.initHTMLContent(
-        this.#cleanupSelectedAndEmptyClassesFromHtml(this.documentRecord.html),
-        this.documentRecord.name,
-      );
+      this.initHTMLContent({
+        html: this.#cleanupSelectedAndEmptyClassesFromHtml(
+          this.documentRecord.html,
+        ),
+        filename: this.documentRecord.name,
+        title: this.documentRecord.title,
+        customCSSStyle: this.documentRecord.customStyle,
+      });
     }
     return this.documentRecord;
   }
@@ -150,11 +191,14 @@ export class MiniMaxEditor {
           const reader = new FileReader();
           reader.onload = (e) => {
             const html = e.target.result;
+            this.initHTMLContent({ html, filename });
             updateOrCreateDocument({
               name: filename,
               html,
+              title: this.#title,
+              stylesheets: this.#stylesheets,
+              customStyle: this.#customStyle,
             });
-            this.initHTMLContent(html, filename);
           };
           reader.readAsText(file);
         }
@@ -205,7 +249,40 @@ export class MiniMaxEditor {
     ]);
     this.turndownService.use(gfm);
   }
-  async initHTMLContent(html, filename = "untitled.html") {
+  setTitle(title) {
+    this.#title = title;
+    if (document.querySelector("head title")) {
+      document.querySelector("head title").innerText = title;
+    }
+    if (this.#titleInput) {
+      this.#titleInput.value = title;
+    }
+  }
+  setCustomStyle(style) {
+    this.#customStyle = beautifyCSS(style);
+    let styleContainer =
+      document.querySelector('style[type="text/css"]') ||
+      document.querySelector("style");
+    if (!styleContainer) {
+      styleContainer = document.createElement("style");
+      styleContainer.setAttribute("type", "text/css");
+      document.body.appendChild(styleContainer);
+    }
+    styleContainer.innerHTML = style;
+  }
+  #collectStyleSheetsFromDocument(doc) {
+    const customStyle =
+      doc.querySelector(`style[type="text/css"]`) || doc.querySelector(`style`);
+    return {
+      links: [
+        ...doc.querySelectorAll(
+          `head link[rel="stylesheet"]:not([disabled]):not([exclude-from-export])`,
+        ),
+      ],
+      customStyle: customStyle?.innerHTML,
+    };
+  }
+  async initHTMLContent({ html, title, stylesheets, customCSSStyle } = {}) {
     let parser = new DOMParser();
     if (!html) {
       alert("No HTML content provided");
@@ -219,6 +296,47 @@ export class MiniMaxEditor {
         doc.querySelector(`article`) ||
         doc.querySelector(`section`)
       )?.innerHTML || "";
+
+    let { customStyle } = this.#collectStyleSheetsFromDocument(doc);
+    // append to body
+    if (customCSSStyle) {
+      customStyle = customCSSStyle;
+    }
+    if (customStyle) {
+      let styleContainer = document.createElement("style");
+      styleContainer.setAttribute("type", "text/css");
+      styleContainer.innerHTML = customStyle;
+      document.body.appendChild(styleContainer);
+      this.setCustomStyle(customStyle);
+      if (this.#customStyleSheetTextarea) {
+        this.#customStyleSheetTextarea.value = beautifyCSS(customStyle);
+      }
+    }
+    if (stylesheets === undefined || stylesheets === null) {
+      const { links } = this.#collectStyleSheetsFromDocument(doc);
+      if (links?.length > 0) {
+        const allLinks = document.querySelectorAll(
+          'head link[rel="stylesheet"]',
+        );
+        const filteredLinks = links
+          .map((link) => {
+            const existingLink = [...allLinks].filter(
+              (l) => l.getAttribute("href") === link.getAttribute("href"),
+            )[0];
+            if (existingLink) {
+              existingLink.disabled = link.disabled;
+              return null;
+            }
+            return link;
+          })
+          .filter((link) => !!link);
+        // append links html to head
+        document.querySelector("head").innerHTML +=
+          `\n${filteredLinks.map((link) => link.outerHTML).join(`\n`)}`;
+      }
+    } else {
+      document.querySelector("head").innerHTML += `\n${stylesheets || ""}`;
+    }
 
     this.editableContainer = document.querySelector(`[editable="minimax"]`);
     let editableSections = this.editableContainer.querySelectorAll(
@@ -234,6 +352,8 @@ export class MiniMaxEditor {
       );
     }
     editableSections.forEach((el) => this.#handleClickOnEditableSection(el));
+    this.setTitle(title || doc.querySelector("title")?.innerText);
+    this.#initStylesheetSelection();
   }
   #handleClickOnEditableSection(el) {
     el.addEventListener("click", (ev) => {
@@ -308,20 +428,27 @@ export class MiniMaxEditor {
     let head = this.head;
     if (head === null || head === undefined) {
       head =
-        `<title>{{name}}</title>\n` +
+        `<title>{{title}}</title>\n` +
         [
           ...document.querySelectorAll(
-            `head link[rel="stylesheet"]:not([exclude-from-export])`,
+            `head link[rel="stylesheet"]:not([exclude-from-export]):not([disabled])`,
           ),
         ]
           .map((e) => e.outerHTML)
           .join(`\n`);
     }
-    head = head.replace("{{name}}", this.documentRecord.name);
+    head = head.replace(
+      "{{title}}",
+      this.documentRecord.title || this.documentRecord.name,
+    );
+
+    const customCSSStyle = this.#customStyle
+      ? `\n<style type="text/css">\n${this.#customStyle}\n</style>\n`
+      : "";
 
     const blob = new Blob(
       [
-        `<!doctype html>\n<head>\n${head}\n</head>\n<body>\n<main>${doc.querySelector("body").innerHTML}</main>\n</body>\n</html>\n`,
+        `<!DOCTYPE html>\n<html>\n<head>\n${head}\n</head>\n<body>\n<main>${(doc.querySelector("body main") || doc.querySelector("body")).innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`,
       ],
       {
         type: "text/html",
@@ -329,7 +456,9 @@ export class MiniMaxEditor {
     );
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    const filename = this.documentRecord.name;
+    const filename =
+      this.documentRecord.title?.replace(/[^\p{Letter}\.\-_\s]+/giu, "") ||
+      this.documentRecord.name;
     a.href = url;
     a.download = filename.endsWith(".html") ? filename : `${filename}.html`;
     document.body.appendChild(a);
@@ -348,6 +477,7 @@ export class MiniMaxEditor {
         this.selectedElementForEditing,
       );
     }
+    this.selectedElementForEditing.scrollIntoView();
     this.#storeDocument();
   }
   #moveDown(ev) {
@@ -361,6 +491,7 @@ export class MiniMaxEditor {
         this.selectedElementForEditing,
       );
     }
+    this.selectedElementForEditing.scrollIntoView();
     this.#storeDocument();
   }
   #duplicate() {
@@ -371,25 +502,39 @@ export class MiniMaxEditor {
     this.selectedElementForEditing.insertAdjacentElement("afterend", clone);
     this.selectedElementForEditing.classList.remove("is-selected-for-editing");
     this.selectedElementForEditing = clone;
+    this.selectedElementForEditing.scrollIntoView();
     this.#handleClickOnEditableSection(clone);
     this.#storeDocument();
   }
-  #insertAfter() {
+  #insertBeforeOrAfter() {
     if (!this.selectedElementForEditing) {
       return;
     }
     let newText = `Edit text here…`;
     let newElement = document.createElement("section");
     newElement.innerHTML = `<p>${newText}</p>`;
-    this.selectedElementForEditing.insertAdjacentElement(
-      "afterend",
-      newElement,
-    );
+
+    const insertBefore =
+      this.targetContainer.classList.contains("shift-key-pressed");
+
+    if (insertBefore) {
+      this.selectedElementForEditing.insertAdjacentElement(
+        "beforebegin",
+        newElement,
+      );
+    } else {
+      this.selectedElementForEditing.insertAdjacentElement(
+        "afterend",
+        newElement,
+      );
+    }
+
     newElement.classList.add("is-selected-for-editing");
 
     this.selectedElementForEditing.classList.remove("is-selected-for-editing");
     this.selectedElementForEditing = newElement;
     this.markdownEditorContainer.value = newText;
+    this.selectedElementForEditing.scrollIntoView();
     this.#handleClickOnEditableSection(newElement);
     this.#storeDocument();
   }
@@ -408,6 +553,7 @@ export class MiniMaxEditor {
     this.markdownEditorContainer.value = "";
     if (nextElement) {
       this.#makeElementSelectedForEditing(nextElement);
+      nextElement.scrollIntoView();
     }
     this.#storeDocument();
   }
@@ -437,6 +583,9 @@ export class MiniMaxEditor {
     const name = (title || "untitled").replace(/(\.html)*$/i, ".html");
     await db.open();
     this.setDocumentTitleAndHtml({ title, name });
+    // this.#init();
+    // TODO: make this work without reloading the page… (init variables, elements etc)
+    window.location.reload();
   }
   async setDocumentTitleAndHtml({
     name,
@@ -448,11 +597,13 @@ export class MiniMaxEditor {
       name = title;
     }
     if (!html) {
-      html = `<!doctype html>\n<html><head><title>${name}</title></head>\n<body><main><article editable="minimax"><section><h1>${title}</h1></section><section><p>${text}</p></section></article></main>\n</body></html>`;
+      html = `<!DOCTYPE html>\n<html><head><title>${title}</title></head>\n<body><main><article editable="minimax"><section><h1>${title}</h1></section><section><p>${text}</p></section></article></main>\n</body></html>`;
     }
+    this.setTitle(title);
     await updateOrCreateDocument({
       name,
       html,
+      title,
     });
     await this.loadLatestDocument();
 
@@ -481,9 +632,10 @@ export class MiniMaxEditor {
         name: "Duplicate",
       },
       {
-        selector: "insert-after",
-        action: this.#insertAfter.bind(this),
+        selector: "insert",
+        action: this.#insertBeforeOrAfter.bind(this),
         name: "Insert After",
+        nameShift: "Insert Before",
       },
       {
         selector: "delete",
@@ -496,7 +648,7 @@ export class MiniMaxEditor {
         name: "New",
       },
     ];
-    buttons.forEach(({ selector, action, name }) => {
+    buttons.forEach(({ selector, action, name, nameShift }) => {
       let target = this.targetContainer.querySelector(selector);
       if (!target) {
         console.warn(`Button with selector ${selector} not found`);
@@ -505,7 +657,9 @@ export class MiniMaxEditor {
       let button = document.createElement("button");
       button.classList.add("editor-button");
       button.classList.add(selector);
-      button.innerText = name || selector;
+      button.setAttribute("aria-label", name || selector);
+      button.dataset.shiftLabel = nameShift || name || selector;
+      // button.innerText = name || selector;
       button.addEventListener("click", action);
       target.replaceWith(button);
     });
@@ -523,31 +677,47 @@ export class MiniMaxEditor {
     }
   }
   #initStylesheetSelection() {
-    let target = this.targetContainer.querySelector("stylesheets");
-    if (!target) {
-      return;
-    }
-    let html = `<form><section>`;
-    [
-      ...document.querySelectorAll(
-        'head link[rel="stylesheet"]:not([exclude-from-export])',
-      ),
-    ].forEach((sheet) => {
-      html += `
-        <section>
-          <label for="${sheet.getAttribute("href").replace(/[^\w0-9]+/g, "_")}">${sheet.getAttribute("href")}</label>
-          <input id="${sheet.getAttribute("href").replace(/[^\w0-9]+/g, "_")}" data-href="${sheet.getAttribute("href")}" type="checkbox" ${sheet.disabled ? "" : ' checked="checked '}" />
-        </section>`;
-    });
-    html += `\n</section></form>`;
-    target.innerHTML = html;
-    target.querySelectorAll('input[type="checkbox"]').forEach((input) => {
-      input.addEventListener("change", (ev) => {
-        document.querySelector(
-          `head link[href="${input.dataset.href}"]`,
-        ).disabled = !input.checked;
+    let styleSheetTarget = this.targetContainer.querySelector("stylesheets");
+    if (styleSheetTarget) {
+      let html = `<form><section>`;
+      [
+        ...document.querySelectorAll(
+          'head link[rel="stylesheet"]:not([exclude-from-export])',
+        ),
+      ].forEach((sheet) => {
+        html += `
+          <section>
+            <label for="${sheet.getAttribute("href").replace(/[^\w0-9]+/g, "_")}">${sheet.getAttribute("href")}</label>
+            <input id="${sheet.getAttribute("href").replace(/[^\w0-9]+/g, "_")}" data-href="${sheet.getAttribute("href")}" type="checkbox" ${sheet.disabled ? "" : ' checked="checked '}" />
+          </section>`;
       });
-    });
+      html += `\n</section></form>`;
+      styleSheetTarget.innerHTML = html;
+      styleSheetTarget
+        .querySelectorAll('input[type="checkbox"]')
+        .forEach((input) => {
+          input.addEventListener("change", (ev) => {
+            document.querySelector(
+              `head link[href="${input.dataset.href}"]`,
+            ).disabled = !input.checked;
+          });
+        });
+    }
+
+    let customStyleTarget = this.targetContainer.querySelector("customStyle");
+
+    if (customStyleTarget) {
+      let textarea = document.createElement("textarea");
+      textarea.placeholder = "Custom CSS that will be included in export";
+      textarea.rows = 5;
+
+      customStyleTarget.replaceWith(textarea);
+      this.#customStyleSheetTextarea = textarea;
+      textarea.addEventListener("input", (ev) => {
+        this.setCustomStyle(textarea.value);
+        this.#storeDocument();
+      });
+    }
   }
   #initElementTagsSelect() {
     let target = this.targetContainer.querySelector("element-tags");
@@ -571,6 +741,23 @@ export class MiniMaxEditor {
     });
     this.elementTagsSelect = target;
   }
+  #initTitleInput() {
+    let target = this.targetContainer.querySelector("title");
+    if (!target) {
+      return;
+    }
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Title";
+    const onChange = () => {
+      this.setTitle(input.value);
+      this.#storeDocument();
+    };
+    input.addEventListener("change", onChange);
+    input.addEventListener("keyup", onChange);
+    this.#titleInput = input;
+    target.replaceWith(input);
+  }
   async #handleMarkdownInput(event) {
     if (this.selectedElementForEditing) {
       this.selectedElementForEditing.innerHTML = marked
@@ -585,10 +772,21 @@ export class MiniMaxEditor {
     }
   }
   async #storeDocument(name = this.documentRecord.name) {
+    if (!this.keepLatestDocumentsInLocalDatabase) {
+      this.documentRecord = {
+        name: "untitled.html",
+        title: this.#title || "Untitled",
+        customStyle: this.#customStyle,
+        html: `<!DOCTYPE html>\n<html><head><title>${this.#title}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
+      };
+      return;
+    }
     // TODO: check <head>/<meta> and add custom <style>
     this.documentRecord = await updateOrCreateDocument({
       name,
-      html: `<!doctype html>\n<html><head><title>${this.documentRecord.name}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
+      title: this.#title,
+      customStyle: this.#customStyle,
+      html: `<!DOCTYPE html>\n<html><head><title>${this.documentRecord.name}</title></head>\n<body>\n${document.querySelector('[editable="minimax"]').outerHTML}\n</body></html>`,
     });
   }
   #handleMarkdownDrop(event) {

@@ -13,6 +13,7 @@
 body.landscape {
   page: landscape-page;
 }
+
 :root {
   --max-readable-width: 50rem;
   @media screen and (max-width: 1200px) {
