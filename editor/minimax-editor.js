@@ -4,6 +4,7 @@ import { gfm } from "https://unpkg.com/@truto/turndown-plugin-gfm";
 import { marked } from "https://unpkg.com/marked/lib/marked.esm.js";
 import markedFootnote from "https://unpkg.com/marked-footnote/dist/index.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
+import "https://cdn.jsdelivr.net/npm/taboverride@4.0.3/build/output/taboverride.js";
 
 const db = new Dexie("MiniMaxEditor");
 
@@ -216,6 +217,7 @@ export class MiniMaxEditor {
 
     let textarea = document.createElement("textarea");
     textarea.rows = 5;
+    window.tabOverride.set(textarea);
     this.markdownEditorContainer.replaceWith(textarea);
     this.markdownEditorContainer = textarea;
 

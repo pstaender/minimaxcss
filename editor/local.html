@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <title>minimax editor</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="../minimax.css" />
+    <link rel="stylesheet" href="../minimax-din-a4.css" />
+    <link rel="stylesheet" href="../minimax-alternate-fonts.css" />
+    <link rel="stylesheet" href="../minimax-monospace.css" disabled />
+    <link rel="stylesheet" href="../minimax-serif.css" disabled />
+    <link rel="stylesheet" href="../minimax-tufte-font.css" disabled />
+    <link rel="stylesheet" href="../minimax-tufte.css" disabled />
+    <script src="../minimax.mjs" type="module"></script>
+    <link rel="stylesheet" href="./minimax-editor.css" exclude-from-export />
+  </head>
+  <body>
+    <main>
+      <article editable="minimax"></article>
+      <minimax-editor class="dont-print vertical">
+        <markdown-editor></markdown-editor>
+        <menu>
+          <drop-file></drop-file>
+          <export-file></export-file>
+          <move-up></move-up>
+          <move-down></move-down>
+          <duplicate></duplicate>
+          <insert></insert>
+          <delete></delete>
+          <new-document></new-document>
+          <element-tags></element-tags>
+          <title></title>
+          <full-width-toggle></full-width-toggle>
+        </menu>
+        <details autoheight>
+          <summary>styles</summary>
+          <section>
+            <section>
+              <stylesheets></stylesheets>
+              <customStyle></customStyle>
+            </section>
+          </section>
+        </details>
+        <collapse-bar></collapse-bar>
+      </minimax-editor>
+      <script type="module">
+        import { MiniMaxEditor } from "./minimax-editor.js";
+        const editor = new MiniMaxEditor();
+        await editor.setup();
+        let doc = await editor.loadLatestDocument();
+        if (!doc) {
+          editor.setDocumentTitleAndHtml({
+            text: "Click on the text to change it…",
+          });
+        }
+        console.log("MiniMaxEditor is ready 🚀");
+      </script>
+    </main>
+  </body>
+</html>
