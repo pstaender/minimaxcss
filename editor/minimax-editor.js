@@ -482,21 +482,40 @@ export class MiniMaxEditor {
       ? `\n<style type="text/css">\n${this.#customStyle}\n</style>\n`
       : "";
 
-    const blob = new Blob(
-      [
-        `<!DOCTYPE html>\n<html>\n<head><meta charset="utf-8">\n${head}\n</head>\n<body>\n<main>${(doc.querySelector("body main") || doc.querySelector("body")).innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`,
-      ],
-      {
-        type: "text/html",
-      },
-    );
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    const filename =
+    let blob = null;
+    let filename =
       this.documentRecord.title?.replace(/[^\p{Letter}\.\-_\s]+/giu, "") ||
       this.documentRecord.name;
+
+    if (this.targetContainer.classList.contains("shift-key-pressed")) {
+      // export as markdown
+      filename = filename.endsWith(".txt") ? filename : `${filename}.txt`;
+      const text = [...doc.querySelectorAll(`[editable="minimax"] > *`)].map(
+        (e) => this.turndownService.turndown(e.innerHTML),
+      );
+      blob = new Blob([text.join(`\n\n`) + `\n`], {
+        type: "text/plain",
+      });
+    } else {
+      // as html
+      filename = filename.endsWith(".html") ? filename : `${filename}.html`;
+      const content =
+        doc.querySelector("body main") || doc.querySelector("body");
+      blob = new Blob(
+        [
+          `<!DOCTYPE html>\n<html>\n<head><meta charset="utf-8">\n${head}\n</head>\n<body>\n<main>${content.innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`,
+        ],
+        {
+          type: "text/html",
+        },
+      );
+    }
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
     a.href = url;
-    a.download = filename.endsWith(".html") ? filename : `${filename}.html`;
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -651,6 +670,7 @@ export class MiniMaxEditor {
         selector: "export-file",
         action: this.#exportFile.bind(this),
         name: "Export as html-file",
+        nameShift: "Export as text file",
       },
       {
         selector: "move-up",
@@ -884,11 +904,40 @@ export class MiniMaxEditor {
   #handleMarkdownDrop(event) {
     event.preventDefault(); // for chrome, to stop opening image
     const files = event.dataTransfer.files;
+
+    const insertInTextarea = (text) => {
+      // insert text at cursor position this.markdownEditorContainer
+      const startPos = this.markdownEditorContainer.selectionStart;
+      const endPos = this.markdownEditorContainer.selectionEnd;
+      const textBefore = this.markdownEditorContainer.value.substring(
+        0,
+        startPos,
+      );
+      const textAfter = this.markdownEditorContainer.value.substring(
+        endPos,
+        this.markdownEditorContainer.value.length,
+      );
+      this.markdownEditorContainer.value = textBefore + text + textAfter;
+
+      // trigger input
+      this.markdownEditorContainer.dispatchEvent(
+        new Event("input", { bubbles: true }),
+      );
+    };
+
     if (files.length > 0) {
       const file = files[0];
 
-      // Ensure it is an image
-      if (file.type.startsWith("image/")) {
+      // Ensure it is an text or image
+      if (file.type.startsWith("text/plain")) {
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          insertInTextarea(event.target.result);
+        };
+
+        reader.readAsText(file);
+      } else if (file.type.startsWith("image/")) {
         let caption = prompt(
           "What caption has the image? Type `(left)` or `(right)` to align the picture:",
         );
@@ -902,11 +951,13 @@ export class MiniMaxEditor {
             imageData = `<aside><picture><img src="${event.target.result}" alt="${text}"></picture>${text ? "\n" + text + "\n" : ""}</aside>`;
           }
 
-          this.markdownEditorContainer.value += `\n${imageData}\n`;
-          // trigger input
-          this.markdownEditorContainer.dispatchEvent(
-            new Event("input", { bubbles: true }),
-          );
+          insertInTextarea(imageData);
+
+          // this.markdownEditorContainer.value += `\n${imageData}\n`;
+          // // trigger input
+          // this.markdownEditorContainer.dispatchEvent(
+          //   new Event("input", { bubbles: true }),
+          // );
         };
 
         reader.readAsDataURL(file);
