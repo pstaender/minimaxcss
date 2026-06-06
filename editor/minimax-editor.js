@@ -4,6 +4,7 @@ import { gfm } from "https://cdn.jsdelivr.net/npm/@truto/turndown-plugin-gfm";
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 import markedFootnote from "https://cdn.jsdelivr.net/npm/marked-footnote/dist/index.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
+import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-html.js";
 import "https://cdn.jsdelivr.net/npm/taboverride@4.0.3/build/output/taboverride.js";
 import katex from "https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.mjs";
 import { QRCodeJs } from "https://cdn.jsdelivr.net/npm/@qr-platform/qr-code.js";
@@ -12,6 +13,9 @@ const db = new Dexie("MiniMaxEditor");
 
 function beautifyCSS(css) {
   return window.css_beautify(css);
+}
+function beautifyHTML(html) {
+  return window.html_beautify(html);
 }
 
 async function initDatabase() {
@@ -529,14 +533,13 @@ export class MiniMaxEditor {
       filename = filename.endsWith(".html") ? filename : `${filename}.html`;
       const content =
         doc.querySelector("body main") || doc.querySelector("body");
-      blob = new Blob(
-        [
-          `<!DOCTYPE html>\n<html>\n<head><meta charset="utf-8">\n${head}\n</head>\n<body>\n<main>${content.innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`,
-        ],
-        {
-          type: "text/html",
-        },
-      );
+      let html = `<!DOCTYPE html>\n<html>\n<head><meta charset="utf-8">\n${head}\n</head>\n<body>\n<main>${content.innerHTML}</main>${customCSSStyle}\n</body>\n</html>\n`;
+      try {
+        html = beautifyHTML(html);
+      } catch (_) {}
+      blob = new Blob([html], {
+        type: "text/html",
+      });
     }
 
     const url = URL.createObjectURL(blob);
@@ -1018,12 +1021,6 @@ export class MiniMaxEditor {
           }
 
           insertInTextarea(imageData);
-
-          // this.markdownEditorContainer.value += `\n${imageData}\n`;
-          // // trigger input
-          // this.markdownEditorContainer.dispatchEvent(
-          //   new Event("input", { bubbles: true }),
-          // );
         };
 
         reader.readAsDataURL(file);
