@@ -1,12 +1,12 @@
-import { Dexie } from "https://unpkg.com/dexie/dist/modern/dexie.mjs";
-import "https://unpkg.com/turndown/lib/turndown.browser.umd.js";
-import { gfm } from "https://unpkg.com/@truto/turndown-plugin-gfm";
-import { marked } from "https://unpkg.com/marked/lib/marked.esm.js";
-import markedFootnote from "https://unpkg.com/marked-footnote/dist/index.js";
+import { Dexie } from "https://cdn.jsdelivr.net/npm/dexie/dist/modern/dexie.mjs";
+import "https://cdn.jsdelivr.net/npm/turndown/lib/turndown.browser.umd.js";
+import { gfm } from "https://cdn.jsdelivr.net/npm/@truto/turndown-plugin-gfm";
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+import markedFootnote from "https://cdn.jsdelivr.net/npm/marked-footnote/dist/index.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
 import "https://cdn.jsdelivr.net/npm/taboverride@4.0.3/build/output/taboverride.js";
 import katex from "https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.mjs";
-import { QRCodeJs } from "https://unpkg.com/@qr-platform/qr-code.js";
+import { QRCodeJs } from "https://cdn.jsdelivr.net/npm/@qr-platform/qr-code.js";
 
 const db = new Dexie("MiniMaxEditor");
 
@@ -247,6 +247,7 @@ export class MiniMaxEditor {
       codeBlockStyle: "fenced",
       hr: "---",
       headingStyle: "atx",
+      emDelimiter: "*",
     });
     this.turndownService.keep([
       "aside",
@@ -376,6 +377,15 @@ export class MiniMaxEditor {
       this.selectedElementForEditing = el;
       this.markdownEditorContainer.disabled = false;
       let content = el.cloneNode(true);
+      const backslashPlaceholder =
+        "{{%backslash-placeholder-avoids-escaping%}}";
+      const linebreakPlaceholder = "{{%lb-placeholder-avoids-lb-be-removed%}}";
+
+      // workaround, since turndown removes <br> inside table cells
+      content.querySelectorAll("table td, table th").forEach((el) => {
+        el.innerHTML = el.innerHTML.replaceAll("<br>", linebreakPlaceholder);
+      });
+
       if (this.katex) {
         // insert pure math annotation for markdown
         content.querySelectorAll("code.language-math").forEach((el) => {
@@ -390,10 +400,10 @@ export class MiniMaxEditor {
           if (!el) {
             return;
           }
-          el.textContent =
-            "$ " +
-            el.querySelector(".katex-mathml annotation")?.textContent +
-            " $";
+          const math = el
+            .querySelector(".katex-mathml annotation")
+            ?.textContent.replaceAll("\\", backslashPlaceholder);
+          el.textContent = `$ ${math} $`;
         });
       }
       if (this.qrcode) {
@@ -404,9 +414,10 @@ export class MiniMaxEditor {
           el.remove();
         });
       }
-      this.markdownEditorContainer.value = this.turndownService.turndown(
-        content.innerHTML,
-      );
+      this.markdownEditorContainer.value = this.turndownService
+        .turndown(content.innerHTML)
+        .replaceAll(backslashPlaceholder, "\\")
+        .replaceAll(linebreakPlaceholder, "<br>");
       this.markdownEditorContainer.focus();
       this.editableContainer
         .querySelectorAll(".is-selected-for-editing")
@@ -463,9 +474,15 @@ export class MiniMaxEditor {
   }
   #exportFile() {
     const parser = new DOMParser();
+    const templateDoc = parser.parseFromString(
+      this.documentRecord.html,
+      "text/html",
+    ).documentElement;
+    templateDoc.querySelector('[editable="minimax"]').innerHTML =
+      document.querySelector('[editable="minimax"]').innerHTML;
     const htmlContent = this.#cleanupSelectedAndEmptyClassesFromHtml(
       //this.documentRecord.html,
-      document.documentElement.outerHTML,
+      templateDoc.outerHTML,
     );
     const doc = parser.parseFromString(
       htmlContent,
@@ -495,7 +512,7 @@ export class MiniMaxEditor {
 
     let blob = null;
     let filename =
-      this.documentRecord.title?.replace(/[^\p{Letter}\.\-_\s]+/giu, "") ||
+      this.documentRecord.title?.replace(/[^\p{Letter}0-9\-._\s]+/giu, "") ||
       this.documentRecord.name;
 
     if (this.targetContainer.classList.contains("shift-key-pressed")) {
@@ -891,7 +908,6 @@ export class MiniMaxEditor {
           qrCode.append(div);
           // insert before the link
           a.insertAdjacentElement("beforebegin", div);
-          // console.log(div.outerHTML);
         }
       });
     }
