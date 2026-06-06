@@ -6,6 +6,7 @@ import markedFootnote from "https://unpkg.com/marked-footnote/dist/index.js";
 import "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.4/beautify-css.js";
 import "https://cdn.jsdelivr.net/npm/taboverride@4.0.3/build/output/taboverride.js";
 import katex from "https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.mjs";
+import { QRCodeJs } from "https://unpkg.com/@qr-platform/qr-code.js";
 
 const db = new Dexie("MiniMaxEditor");
 
@@ -94,6 +95,7 @@ export class MiniMaxEditor {
   #customStyleSheetTextarea = null;
   #titleInput = null;
   katex = katex;
+  qrcode = QRCodeJs;
 
   constructor(target) {
     this.#init(target);
@@ -394,6 +396,14 @@ export class MiniMaxEditor {
             " $";
         });
       }
+      if (this.qrcode) {
+        content.querySelectorAll(".qrcode:has(svg)").forEach((el) => {
+          if (!el) {
+            return;
+          }
+          el.remove();
+        });
+      }
       this.markdownEditorContainer.value = this.turndownService.turndown(
         content.innerHTML,
       );
@@ -454,7 +464,8 @@ export class MiniMaxEditor {
   #exportFile() {
     const parser = new DOMParser();
     const htmlContent = this.#cleanupSelectedAndEmptyClassesFromHtml(
-      this.documentRecord.html,
+      //this.documentRecord.html,
+      document.documentElement.outerHTML,
     );
     const doc = parser.parseFromString(
       htmlContent,
@@ -768,6 +779,7 @@ export class MiniMaxEditor {
       textarea.rows = 5;
 
       customStyleTarget.replaceWith(textarea);
+      window.tabOverride.tabSize(2).set(textarea);
       this.#customStyleSheetTextarea = textarea;
       textarea.addEventListener("input", (ev) => {
         this.setCustomStyle(textarea.value);
@@ -844,44 +856,82 @@ export class MiniMaxEditor {
     }
   }
   #postRenderHTML(element) {
-    if (!this.katex) {
-      return;
-    }
-    element
-      .querySelectorAll(
-        // :not selector prevents re-rendering
-        `code.language-math:not(.language-math:has(.katex-display))`,
-      )
-      .forEach((el) => {
-        this.katex.render(el.innerText, el, {
-          displayMode: true,
-          throwOnError: false,
-        });
-      });
-    element
-      .querySelectorAll(
-        // :not selector prevents re-rendering
-        `code:not(.inline-math)`,
-      )
-      .forEach((el) => {
-        if (el.querySelector(".katex-display")) {
-          return;
+    if (this.qrcode) {
+      element.querySelectorAll("a:not(.qrcode)").forEach((a) => {
+        const url = a.getAttribute("href");
+        if (a.textContent === "qrcode") {
+          const div = document.createElement("div");
+          div.classList.add("qrcode");
+          a.style.display = "none";
+          a.classList.add("qrcode");
+          const qrCode = new QRCodeJs({
+            data: url,
+            width: "100%",
+            height: "100%",
+            dotsOptions: {
+              color: "#000000", // Blue dots
+              type: "square", // Use rounded dots
+            },
+            backgroundOptions: {
+              color: "#ffffff",
+            },
+            cornersSquareOptions: {
+              type: "square",
+              color: "#000000",
+            },
+            cornersDotOptions: {
+              type: "square",
+              color: "#000000",
+            },
+          });
+          // div.style.display = "inline-block";
+          div.style.maxHeight = "var(--qrcode-max-height, 4rem)";
+          div.style.aspectRatio = 1;
+          div.style.display = "var(--qrcode-display, inline-block)";
+          qrCode.append(div);
+          // insert before the link
+          a.insertAdjacentElement("beforebegin", div);
+          // console.log(div.outerHTML);
         }
-        if (/^\$\s.+?\s\$$/.test(el.textContent)) {
-          let math = el.textContent
-            .replace(/^\$\s+/, "")
-            .replace(/\s+\$$/, "")
-            .trim();
-          if (!math) {
-            return;
-          }
-          el.classList.add("inline-math");
-          this.katex.render(math, el, {
+      });
+    }
+    if (this.katex) {
+      element
+        .querySelectorAll(
+          // :not selector prevents re-rendering
+          `code.language-math:not(.language-math:has(.katex-display))`,
+        )
+        .forEach((el) => {
+          this.katex.render(el.innerText, el, {
             displayMode: true,
             throwOnError: false,
           });
-        }
-      });
+        });
+      element
+        .querySelectorAll(
+          // :not selector prevents re-rendering
+          `code:not(.inline-math)`,
+        )
+        .forEach((el) => {
+          if (el.querySelector(".katex-display")) {
+            return;
+          }
+          if (/^\$\s.+?\s\$$/.test(el.textContent)) {
+            let math = el.textContent
+              .replace(/^\$\s+/, "")
+              .replace(/\s+\$$/, "")
+              .trim();
+            if (!math) {
+              return;
+            }
+            el.classList.add("inline-math");
+            this.katex.render(math, el, {
+              displayMode: true,
+              throwOnError: false,
+            });
+          }
+        });
+    }
   }
   async #storeDocument(name = this.documentRecord.name) {
     if (!this.keepLatestDocumentsInLocalDatabase) {
