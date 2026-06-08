@@ -102,6 +102,7 @@
       width: min(600px, 50vw);
       &:has(#toggle-fill-width:checked) {
         width: 100%;
+        background: light-dark(white, #222);
       }
       height: 100%;
       left: inherit;
@@ -110,6 +111,7 @@
       }
       &:has(.collapse-bar) {
         padding-right: calc(1rem + var(--space));
+        transition: width 0.2s;
       }
       .collapse-bar {
         position: absolute;

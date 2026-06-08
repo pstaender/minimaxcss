@@ -39,3 +39,40 @@ main {
     list-style-type: square;
   }
 }
+
+/*section {
+  > *:has(+ h1),
+  > *:has(+ h2),
+  > *:has(+ h3),
+  > *:has(+ h4),
+  > *:has(+ h5),
+  > *:has(+ h6) {
+    margin-bottom: var(--space);
+  }
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
+    margin-top: 0;
+    margin-bottom: var(--space-small);
+    &:has(+ h1),
+    &:has(+ h2),
+    &:has(+ h3),
+    &:has(+ h4),
+    &:has(+ h5),
+    &:has(+ h6) {
+      margin-bottom: 0;
+    }
+    & + h1,
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5,
+    & + h6 {
+      margin-top: var(--space-small);
+      margin-bottom: var(--space);
+    }
+  }
+}*/

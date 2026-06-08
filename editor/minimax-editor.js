@@ -99,6 +99,7 @@ export class MiniMaxEditor {
   #customStyleSheetTextarea = null;
   #titleInput = null;
   katex = katex;
+  marked = marked;
   qrcode = QRCodeJs;
 
   constructor(target) {
@@ -264,7 +265,7 @@ export class MiniMaxEditor {
       "figure",
       "figcaption",
       "div",
-      "side-note",
+      "small",
     ]);
     this.turndownService.use(gfm);
   }
@@ -377,7 +378,11 @@ export class MiniMaxEditor {
   }
   #handleClickOnEditableSection(el) {
     el.addEventListener("click", (ev) => {
+      if (el.parentElement.getAttribute("editable") !== "minimax") {
+        return;
+      }
       ev.stopPropagation();
+
       this.selectedElementForEditing = el;
       this.markdownEditorContainer.disabled = false;
       let content = el.cloneNode(true);
@@ -432,6 +437,7 @@ export class MiniMaxEditor {
         el.closest("footer") ||
         el.closest("hgroup") ||
         el.closest("header") ||
+        el.closest("small") ||
         el.closest("aside");
       parentElementSection.classList.add("is-selected-for-editing");
       if (this.elementTagsSelect) {
@@ -862,8 +868,7 @@ export class MiniMaxEditor {
   }
   async #handleMarkdownInput(event) {
     if (this.selectedElementForEditing) {
-      this.selectedElementForEditing.innerHTML = marked
-        .use(markedFootnote)
+      this.selectedElementForEditing.innerHTML = this.marked
         .parse(
           this.markdownEditorContainer.value.trim()
             ? this.markdownEditorContainer.value
