@@ -15,6 +15,7 @@ body {
   font: var(--font);
   line-height: var(--line-height);
   background-color: var(--background-color, none);
+  font-size-adjust: var(--font-size-adjust, inherit);
 }
 
 a {
@@ -92,20 +93,12 @@ pre {
   border-radius: var(--border-radius);
   font: var(--font-monospace);
   overflow-x: auto;
-  font-size: 1rem;
-  line-height: 1;
-  @media print {
-    overflow: inherit;
-    white-space: break-spaces;
-  }
 }
 
 code {
-  font-size: var(--font-size-monospace);
   background: var(--color-gray-light);
   padding: 0.2em 0.4em;
   border-radius: var(--border-radius);
-  font-variant-ligatures: none;
 }
 
 pre:has(> code) {

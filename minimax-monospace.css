@@ -1,5 +1,6 @@
 :root {
   --font: var(--font-monospace);
+  --font-size-adjust-monospace: ex-height 0.6;
   --webkit-font-smoothing: auto;
   --font-size: var(--font-size-monospace);
   --ornament: "*";
@@ -7,13 +8,6 @@
   --paragraph-text-alignment: unset;
   @media print {
     --line-height: 1.45;
-    --font-size-monospace: 0.8rem;
-  }
-}
-
-@media print {
-  :root {
-
   }
 }
 

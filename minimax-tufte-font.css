@@ -32,12 +32,10 @@
   --font-family:
     et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua",
     Georgia, serif;
-  --font-size-monospace: 0.8em;
   --webkit-font-smoothing: auto;
 
   @media print {
     --font-size: 14px;
-    --font-size-monospace: 0.7em;
     --main-column-width: 70%;
   }
   @media screen and (min-width: 900px) {

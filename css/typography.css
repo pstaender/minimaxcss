@@ -1,0 +1,12 @@
+pre {
+  font-size-adjust: var(--font-size-adjust-monospace);
+  line-height: 1.2;
+  @media print {
+    overflow: inherit;
+    white-space: break-spaces;
+  }
+}
+code {
+  font-size-adjust: var(--font-size-adjust-monospace);
+  font-variant-ligatures: none;
+}

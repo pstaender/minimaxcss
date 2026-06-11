@@ -95,7 +95,6 @@ form:has(> section) {
   section:has(> label + select) {
     display: flex;
     justify-content: space-between;
-    /*grid-template-columns: repeat(2, 1fr);*/
     gap: var(--space);
     margin-bottom: 0;
     label {

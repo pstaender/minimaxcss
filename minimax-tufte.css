@@ -33,17 +33,15 @@
   --font-family-serif:
     et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua",
     Georgia, serif;
-  --font-size-monospace: 0.8em;
   --main-column-width: inherit;
   --column-gap: var(--space);
   --color-gray-light: #f6f6f6;
   --text-indent-after-first-paragraph: 0;
+  --font-size-adjust-monospace: ex-height 0.4;
 
   @media print {
     --font-size: 14px;
     --font-size-serif: 14px;
-    --font-size-monospace: 0.7em;
-    /*--color-gray-light: none;*/
     --main-column-width: 70%;
   }
   @media screen and (min-width: 900px) {
@@ -232,6 +230,7 @@ table {
 }
 code {
   background: none;
+  padding: 0;
 }
 blockquote {
   padding: var(--space);
