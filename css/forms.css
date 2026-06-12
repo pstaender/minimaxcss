@@ -1,32 +1,31 @@
-form:has(> section) {
-  --border-size: 2px;
-  textarea {
-    font: var(--font-monospace);
-    display: block;
-    width: 100%;
-  }
-  textarea,
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="url"],
-  input[type="color"],
-  input[type="date"],
-  input[type="datetime-local"],
-  input[type="time"],
-  input[type="month"],
-  input[type="number"],
-  input[type="search"],
-  input[type="tel"],
-  input[type="url"],
-  input[type="week"],
-  input[type="file"] {
-    border-radius: var(--border-radius);
-    border: var(--border-size) solid currentColor;
-    padding: var(--space-small);
-    outline: var(--border-size) solid transparent;
-    transition: outline var(--form-transition-duration);
-    height: var(--form-input-height);
+textarea {
+  font: var(--font-monospace);
+  display: block;
+  width: 100%;
+}
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="month"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="week"],
+input[type="file"] {
+  border-radius: var(--border-radius);
+  border: var(--border-size) solid currentColor;
+  padding: var(--space-small);
+  outline: var(--border-size) solid transparent;
+  transition: outline var(--form-transition-duration);
+  height: var(--form-input-height);
+  @media screen {
     &:focus {
       outline: var(--border-size) solid currentColor;
       outline-offset: var(--border-size);
@@ -36,20 +35,26 @@ form:has(> section) {
       opacity: 0.35;
     }
   }
-  input[type="range"] {
-    border-radius: var(--border-radius);
-    margin-right: 0.15em;
-    height: var(--form-input-height);
-    &:focus {
-      outline: var(--border-size) solid currentColor;
-    }
-  }
-  input[type="file"] {
-    border: none;
-    text-align: right;
-    font: var(--font-monospace);
-    transition: background var(--form-transition-duration);
-    border-radius: var(--border-radius);
+}
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="range"],
+input[type="number"]{
+  width: var(--form-text-input-width);
+}
+input[type="file"] {
+  border: none;
+  text-align: right;
+  font: var(--font-monospace);
+  transition: background var(--form-transition-duration);
+  border-radius: var(--border-radius);
+  @media screen {
     &::file-selector-button {
       border-radius: var(--border-radius);
       border: 0;
@@ -63,14 +68,16 @@ form:has(> section) {
       cursor: pointer;
     }
   }
-  textarea {
-    height: inherit;
-  }
-  select {
-    border: var(--border-size) solid currentColor;
-    border-radius: var(--border-radius);
-    padding: var(--space-small);
-    transition: outline var(--form-transition-duration);
+}
+textarea {
+  height: inherit;
+}
+select {
+  border: var(--border-size) solid currentColor;
+  border-radius: var(--border-radius);
+  padding: var(--space-small);
+  transition: outline var(--form-transition-duration);
+  @media screen {
     &:hover,
     &:focus {
       background: var(--color-gray-lighter);
@@ -81,21 +88,43 @@ form:has(> section) {
       cursor: pointer;
     }
   }
+}
 
+input:invalid,
+select:invalid {
+  color: var(--color-red);
+}
+
+fieldset {
+  border: var(--border-size) solid var(--color-gray-lighter);
+  padding: var(--space);
+  border-radius: var(--border-radius);
+  &:has(legend) {
+    padding-top: var(--space-small);
+  }
+  > section {
+    display: flex;
+    gap: var(--space-small);
+    label {
+      flex-grow: 1;
+    }
+  }
+}
+form {
   section > label:has(+ select),
   section > label:has(+ input) {
     display: flex;
     align-items: center;
   }
-  input:invalid,
-  select:invalid {
-    color: var(--color-red);
-  }
   section:has(> label + input),
   section:has(> label + select) {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space);
+    display: grid;
+    gap: var(--space-small);
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space);
+    }
+
     margin-bottom: 0;
     label {
       width: 100%;
@@ -107,21 +136,8 @@ form:has(> section) {
       display: block;
     }
   }
-  fieldset {
-    border: var(--border-size) solid var(--color-gray-lighter);
-    padding: var(--space);
-    border-radius: var(--border-radius);
-    &:has(legend) {
-      padding-top: var(--space-small);
-    }
-    > section {
-      display: flex;
-      gap: var(--space-small);
-      label {
-        flex-grow: 1;
-      }
-    }
-  }
+}
+form:has(> section) {
   section footer {
     display: flex;
     gap: var(--space-small);

@@ -62,7 +62,6 @@ h6,
 .h4,
 .h5,
 .h6 {
-  margin-top: var(--space);
   line-height: var(--line-height-heading);
   margin-bottom: calc(0.65 * var(--space));
 }
@@ -77,6 +76,26 @@ h6,
 h6,
 .h6 {
   font-weight: 500;
+}
+
+section {
+
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6,
+  > .h1,
+  > .h2,
+  > .h3,
+  > .h4,
+  > .h5,
+  > .h6 {
+    &:not(:first-child) {
+      margin-top: var(--space);
+    }
+  }
 }
 
 mark {
@@ -275,7 +294,8 @@ p:has(+ h3) {
 }
 
 hgroup {
-  margin-top: var(--space-small);
+  display: grid;
+  gap: var(--space-small);
   margin-bottom: calc(1.5 * var(--space));
   p:last-of-type:has(+ h1),
   p:last-of-type:has(+ h2),
@@ -293,14 +313,9 @@ hgroup {
       margin-top: calc(0.5 * var(--space-small));
     }
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0;
-    margin-bottom: var(--space-small);
+  * {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 

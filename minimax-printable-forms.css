@@ -1,0 +1,54 @@
+:root {
+  --form-input-border: 2px solid currentColor;
+}
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: var(--background-color, white);
+  /* Not removed via appearance */
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.25em;
+  height: 1.25em;
+  border: var(--form-input-border);
+  border-radius: var(--border-radius);
+  /*transform: translateY(-0.05em);*/
+  display: inline-grid;
+  place-content: center;
+  box-shadow: 1px 1px 0 currentColor;
+}
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.7em;
+  height: 0.7em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  /*box-shadow: inset 1em 1em var(--form-control-color);*/
+  background-color: currentColor;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="url"] {
+  border: 0;
+  border-bottom: var(--form-input-border);
+  border-radius: 0;
+  background: var(--color-gray-light);
+}
+input::placeholder {
+  color: color-mix(in srgb, currentColor 30%, transparent);
+}
+@media print {
+  textarea {
+    resize: none;
+  }
+}
