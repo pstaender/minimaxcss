@@ -1,7 +1,29 @@
 # minimaxCSS
 ## minimal css effort with maximum layout outcome 
 
-### Demos
+Start using minimaxcss with:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-starter.css" />
+```
+
+Now writing simple html has a nice default layout:
+
+```html
+<main>
+  <article>
+    <h1>Use html syntax to style your document</h1>
+    <p>Simple to write and living the spirit of the semantic web</p>
+    <section>
+      <p>Use <code>section</code>-tags to structure content.</p>
+    </section>
+  </article>
+</main>
+```
+
+<img width="642" height="119" alt="Bildschirmfoto 2026-06-11 um 21 41 50" src="https://github.com/user-attachments/assets/eb8e5a57-fd0e-4352-bc15-7ed46a4b6bdb" />
+
+### Examples
 
 * [Convert any markdown to html for testing](https://pstaender.github.io/minimaxcss/examples/markdown.html)
 * [Misc](https://pstaender.github.io/minimaxcss/examples/misc.html)
@@ -14,11 +36,11 @@
 * [Forms](https://pstaender.github.io/minimaxcss/examples/forms.html)
 * [E. Tufte Theme](https://pstaender.github.io/minimaxcss/examples/tufte.html)
 
-### Editor Demo
+### Editor
 
 Try out the [browser based editor](https://pstaender.github.io/minimaxcss/editor/editor.html). You can import, edit and export html documents. The minimax-stylesheets can be switched on and off.
 
-### Usage
+### More granular use cases
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax.css" />
