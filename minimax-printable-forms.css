@@ -14,7 +14,6 @@ input[type="checkbox"] {
   height: 1.25em;
   border: var(--form-input-border);
   border-radius: var(--border-radius);
-  /*transform: translateY(-0.05em);*/
   display: inline-grid;
   place-content: center;
   box-shadow: 1px 1px 0 currentColor;
@@ -25,8 +24,10 @@ input[type="checkbox"]::before {
   height: 0.7em;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  /*box-shadow: inset 1em 1em var(--form-control-color);*/
   background-color: currentColor;
+}
+textarea {
+  border-radius: 0;
 }
 
 input[type="checkbox"]:checked::before {

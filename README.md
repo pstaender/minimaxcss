@@ -21,7 +21,7 @@ Now writing simple html has a nice default layout:
 </main>
 ```
 
-<img width="642" height="119" alt="Bildschirmfoto 2026-06-11 um 21 41 50" src="https://github.com/user-attachments/assets/eb8e5a57-fd0e-4352-bc15-7ed46a4b6bdb" />
+<img width="642" height="119" alt="Example" src="https://github.com/user-attachments/assets/eb8e5a57-fd0e-4352-bc15-7ed46a4b6bdb" />
 
 ### Examples
 
@@ -66,10 +66,16 @@ Use alternate free modern fonts (uses `Inter` instead of `Arial`, `Lora` instead
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-alternate-fonts.css" />
 ```
 
-Use monospace as font for everythong:
+Use monospace as font as default document-wide:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-monospace.css" />
+```
+
+Printer-friendly forms:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimaxcss@latest/minimax-printable-forms.css" />
 ```
 
 #### Little js magic for smoother UX
