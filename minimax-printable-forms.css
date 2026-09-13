@@ -1,7 +1,8 @@
 :root {
   --form-input-border: 2px solid currentColor;
 }
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
   -webkit-appearance: none;
   appearance: none;
   /* For iOS < 15 to remove gradient background */
@@ -18,7 +19,8 @@ input[type="checkbox"] {
   place-content: center;
   box-shadow: 1px 1px 0 currentColor;
 }
-input[type="checkbox"]::before {
+input[type="checkbox"]::before,
+input[type="radio"]::before {
   content: "";
   width: 0.7em;
   height: 0.7em;
@@ -26,12 +28,16 @@ input[type="checkbox"]::before {
   transition: 120ms transform ease-in-out;
   background-color: currentColor;
 }
+input[type="checkbox"]:checked::before,
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+input[type="radio"]::before,
+input[type="radio"] {
+  border-radius: 50%;
+}
 textarea {
   border-radius: 0;
-}
-
-input[type="checkbox"]:checked::before {
-  transform: scale(1);
 }
 input[type="text"],
 input[type="password"],
