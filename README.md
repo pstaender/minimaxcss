@@ -95,7 +95,7 @@ Printer-friendly forms:
 * `p.initial-letter` (fancy first letter)
 * `.no-smooth-scroll` (opt-out of smooth-scrolling-behaviour)
 * `table.sticky-headings` (forces sticky first row and first column)
-* `button.call-to-action` (use `--accent-color` and `--accent-text-color` to set your preferred colors)
+* `button.primary` (use `--accent-color` and `--accent-text-color` to set your preferred colors)
 * `.h1`, `.h2` etc. (simulate headings without using the actual heading elements)
 
 ### Goals

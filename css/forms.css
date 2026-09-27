@@ -2,6 +2,24 @@ textarea {
   font: var(--font-monospace);
   display: block;
   width: 100%;
+  &[autoheight]:not(rows) {
+    field-sizing: content;
+    min-height: 5lh;
+    max-height: 20lh;
+    overflow-y: auto;
+    @supports (min-height: calc(attr(autoheight type(<number>), 5) * 1lh)) {
+      min-height: calc(attr(autoheight type(<number>), 5) * 1lh);
+    }
+    /*&[rows] {
+      min-height: calc(attr(rows type(<number>)) * 1rem);
+      max-height: auto;
+    }*/
+  }
+  /*@supports (calc(attr(rows type(<number>, 20lh), 5) * 1lh)) {
+    &[autoheight][rows] {
+      max-height: calc(attr(rows type(<number>, 20lh), 5) * 1lh);
+    }
+  }*/
 }
 textarea,
 input[type="text"],
@@ -176,9 +194,15 @@ input[type="reset"],
     outline: 2px solid var(--active-color);
   }
 }
+a.button {
+  text-decoration: none;
+  display: inline-block;
+  color: currentColor;
+  font-weight: normal;
+}
 
-button.call-to-action,
-.button.call-to-action {
+button.primary,
+.button.primary {
   font-weight: var(--font-weight-semi-bold);
   background: var(--accent-color);
   color: var(--accent-text-color);
