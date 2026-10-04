@@ -34,7 +34,6 @@ input[type="file"] {
   outline: var(--border-size) solid transparent;
   transition: outline var(--form-transition-duration);
   height: var(--form-input-height);
-  line-height: 1.75;
   @media screen {
     &:focus {
       outline: var(--border-size) solid currentColor;
@@ -176,6 +175,7 @@ input[type="reset"],
   font-size: 0.95em;
   transition: outline --form-transition-duration;
   outline: 2px solid transparent;
+  line-height: 1.75;
   @media (hover) {
     &:hover {
       cursor: pointer;
